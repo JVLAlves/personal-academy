@@ -1,4 +1,4 @@
-package main
+package Decrypters
 
 import (
 	"fmt"
@@ -156,10 +156,6 @@ func A1Z26(Encrypted string) (Decrypted string) {
 
 }
 
-func VIG(Encrypted string) {
-	for y := 0; y < len(Encrypted); y++ {
-
-	}
 }
 func Vigenerie(key string, Encrypted string) (Decrypted string) {
 
@@ -285,9 +281,4 @@ func Vigenerie(key string, Encrypted string) (Decrypted string) {
 	Decrypted = strings.Join(Ciphered, "")
 	return Decrypted
 
-}
-
-func main() {
-	RESPONSE := Vigenerie("SHIFTER", "OOIYDMEVVNIBWRKAMWBRUWLL")
-	fmt.Println(RESPONSE)
 }

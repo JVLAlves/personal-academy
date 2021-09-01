@@ -1,0 +1,3 @@
+#ignore all go. files (e.i. go.mod, go.sum)
+*go.
+

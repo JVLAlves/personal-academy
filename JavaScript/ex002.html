@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS JavaScript - DOM</title>
+    <style>
+
+    
+    </style>
+</head>
+
+<h1>Calculadora Fantástica</h1>
+<input type="radio" name="operator" value="sum">
+<label for="sum">Soma</label><br>
+<input type="radio" name="operator" value="sub">
+<label for="sub">Subtração</label><br>
+<input type="submit" value="Submit" id="button" onclick="Click()">
+<br>
+
+<p id="resp"></p>
+
+
+<body>
+    
+    <script>
+
+        function Click(){
+         var radio = document.getElementsByName("operator")
+         for (var i = 0; i < radio.length; i++){
+             if (radio[i].checked){
+                 alert(radio[i].value)
+             }
+         }
+        }
+
+    </script>
+</body>
+</html>

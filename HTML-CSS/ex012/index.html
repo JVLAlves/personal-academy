@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -13,4 +13,26 @@
     <source media="(max-width:1050px)" srcset="imagens/photo-m.png" type="image/png">
     <img src="imagens/photo-g.png" alt="fotop">
 </picture>
+<h1>Reproduzindo Áudio</h1>
+<p>Vamos aprender a reproduzir áudios em HTML5</p>
+<!--<audio src="audio/WalkThroughthePark.mp3" controls autoplay</audio>-->
+<audio preload="metadata" controls loop>
+    <source src="audio/WalkThroughthePark.mp3" type="audio/mpeg">
+    <source src="audio/WalkThroughthePark.ogg" type="audio/ogg">
+    <source src="audio/WalkThroughthePark.wav" type="audio/wav">
+    <p>Infelizmente o seu navegador não consegue reproduzir áudio. <a href="audio/WalkThroughthePark.mp3">Clique aqui para baixar o arquivo MP3</a></p>
+</audio>
+<h1>Inserindo vídeos hospedados localmente</h1>
+<p>Este vídeo está hospedado no meu próprio servidor</p>
+<!--<video src="video/pexels-mart-production-7565457.m4v" width="500" controls></video>-->
+<video preload="metadata" controls autoplay loop>
+    <source src="video/pexelsvideo.m4v" type="video/mp4">
+    <source src="video/pexelsvideo.ogv" type="video/ogg">
+    <source src="video/pexelsvideo.webm" type="video/webm">
+    <p>Infelizmente o seu navegador não consegue reproduzir áudio. <a href="audio/WalkThroughthePark.mp3">Clique aqui para baixar o arquivo MP3</a></p>
+</video>
+<h1>Inserindo vídeos no Youtube</h1>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/3hng-hmSv2Y?start=294" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h1>Inserido vídeos no Vimeo</h1>
+<iframe src="https://player.vimeo.com/video/287383546?h=f9512a9a62&portrait=0" width="560" height="315" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
 </html>

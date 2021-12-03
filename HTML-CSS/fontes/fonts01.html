@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Fontes em CSS</title>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    /*SAFE FONT COMBINATION --> Acessivel em W3school CSS Fallback Fonts*/
+    body{
+        font-family: 'Work Sans', Arial, Helvetica, sans-serif;
+        /*
+        Medidas Absolutas
+        cm, mm, in(inches), PX, pt, pc
+
+        Medidas Relativas
+        EM (Rel. a altura Maiuscula) ,ex (Rel. a altura x), rem (rel. ao root), vw(View Width/viewport), vh(View Height/viewport), %
+        */
+        /* 16px = 1em */
+        font-size:1em;
+        /*lighter normal bold bolder*/
+    }
+    h1{
+        /*
+        Shorthand Font
+        - font-style -> font-weight -> font-size -> font-family
+
+        font-family:'Work Sans', sans-serif
+        font-size: 4em;
+        font-weight: bolder;
+        font-style: italic;
+
+        */
+        font: italic bolder 4em 'Work Sans', sans-serif;
+    }
+</style>
+<body>
+<h1>Trabalhando com fontes</h1>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab ad ducimus earum excepturi facilis, laboriosam optio quibusdam quisquam similique voluptatem? A fugit harum illum ipsa neque officia quisquam sed sit.</p>
+<h2>Subtitulo</h2>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi illum iste natus reprehenderit saepe. Consequatur error illo molestiae necessitatibus odit perferendis soluta velit voluptatem. Dicta ex nostrum officia praesentium voluptatum!</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque blanditiis cumque distinctio dolorem doloribus ea eius eligendi explicabo maxime minima perspiciatis placeat quam, quasi repellat sit, temporibus veniam? Corporis, provident!</p>
+</body>
+</html>

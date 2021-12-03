@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Links</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, Sans-serif;
+
+        }
+        a{
+            color:red;
+            text-decoration:none;
+            font-weight:bold;
+            margin:;
+        }
+        a:visited{
+            color:darkred;
+        }
+        a:hover{
+            color:black;
+            text-decoration:underline;
+        }
+        a:active{
+            color:orange;
+        }
+        /*Para alterar elementos, conteúdos através do CSS, utiliza-se Pseudo-elementos.*/
+        a::after{
+            content: ' [link]';
+            text-decoration:none;
+        }
+
+         .unique{
+             background-image: linear-gradient(to right, #00E5F9, #00B1FF, #0097FF, #0063FF);
+             padding:4px;
+             box-shadow: 1.75px 2.5px 5px #7FA267;
+             display: inline;
+         }
+         .unique::before{
+             content: "♚ ";
+         }
+        .unique::after{
+            content: " ♚";
+        }
+    </style>
+</head>
+<body>
+<h1>Personalizando Links</h1>
+<ul>
+
+    <li><a class="unique" target="_blank" href="https://entitywiki.wixsite.com/wns-storytellingblog">Word and Sword: Storytelling Blog</a></li>
+    <li><a target="_blank" href="https://entitywiki.wixsite.com/webbottom">Webbottom</a></li>
+    <li><a target="_blank" href="https://open.spotify.com/playlist/3C94GT1zuaQxkwCnqh4tcS">Spotify</a></li>
+</ul>
+
+</body>
+</html>

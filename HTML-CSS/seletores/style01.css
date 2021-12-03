@@ -1,0 +1,51 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body{background-color:#B9E39A;
+    font-family: Arial, Helvetica Sans-Serif;}
+/*Para formatações especificas e únicas(somente uma tag com essa formatação), utilize ID*/
+h1#page-title{
+    background-image: linear-gradient(to right, #AB5799, #783D6B, #5E4C5A);
+    border-radius: 10px;
+    color:white;
+    font: normal bolder 3em "Big Shoulders Display", Arial, Helvetica, Sans-Serif;
+    text-align: center;
+}
+/*Para um conjunto de formatações especificas, utilize Class*/
+.subtitle{
+    color:#6C4480;
+    font: normal bold 2em "Big Shoulders Display", Arial, Helvetica, Sans-Serif;
+}
+
+.basics{
+    color:#78A352;
+}
+.intermidiate{
+    color:#E6730F;
+}
+.advanced{
+    color:#BC4B51;
+}
+
+h2{
+    font: normal 600 1.5em "Big Shoulders Display", Arial, Helvetica, Sans-Serif;
+}
+p, span{
+    color:black;
+    font-size: 17px;
+    text-align:justify;
+}
+.highlight{
+    background-image: linear-gradient(to right, #ffdd00, #ffc300, #ffb700,#ffaa00);
+    padding:4px;
+    box-shadow: 1.75px 2.5px 5px #7FA267;
+    display:inline;
+}
+
+.highlight:hover{
+    background-image: linear-gradient(to right, #ffdd00, #ffc300, #ffb700,#ffaa00);
+    text-decoration:underline;
+    padding:4px;
+    box-shadow: 1.75px 2.5px 5px #7FA267;
+    display:inline;
+}

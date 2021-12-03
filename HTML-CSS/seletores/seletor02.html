@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>DIVs</title>
+    <style>
+        @charset "UTF-8";
+        @import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        .highlight{
+            background-image: linear-gradient(to right, #00e5f9, #00cbff, #0097ff, #2542ee);
+            padding:4px;
+            box-shadow: 1.75px 2.5px 5px #7FA267;
+            display:inline;
+            text-shadow: 1px 2px 2px black;
+        }
+        div{
+            padding: 10px;
+            font-family: "Big Shoulders Display",Arial, Helvetica, Sans-serif;
+            font-size: 1.5em;
+        }
+        div#first{
+            color:white;
+            font-weight:bolder;
+        }
+        /*Pseudo-classe -> hover*/
+        div#second:hover{
+            color:#ff312e;
+            text-decoration:underline;
+        }
+        /* Indicação de filho(child) -> parent > child */
+        div#third > p {
+            display: none;
+        }
+        div#third:hover > p{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<h1>DIV</h1>
+<div id="first" >
+    <p class="highlight">Esta div possui uma bela formação.</p>
+</div>
+<div id="second">
+Esta div é interativa.
+</div>
+<div id="third">
+    Essa div possui um texto escondido... SHHHHHH! &#x1f92b;
+    <p>ACHOU!</p>
+</div>
+<p>Fim do exemplo</p>
+</body>
+</html>

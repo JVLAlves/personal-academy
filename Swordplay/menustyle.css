@@ -1,0 +1,57 @@
+div#classes img{
+    display: block;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    
+}
+div#classes button{
+background-color:transparent;
+border:none;
+}
+body {
+    background-color: #D8E0D0;
+    
+}
+
+div#Samurai-classbutton > button{
+    transition: 0.5s;
+}
+
+div#Villager-classbutton > button{
+    transition: 0.5s;
+    }
+
+div#Samurai-classbutton > button:hover{
+    transform: scale(1.1);
+    display:inline;
+}
+
+
+
+div#Villager-classbutton > button:hover{
+    transform: scale(1.2);
+    display: inline;
+}
+
+div#classes button:active {
+    transform: scale(0.5) rotate(360deg)
+    }
+    
+
+div#classes button:hover + p{
+    display: inline;
+    margin-left: 20px;
+    margin-bottom: 0px;
+}
+
+div#classes button:active + p{
+    display: none;
+}
+
+
+
+div#classes p{
+    display:none;
+    font-size: 2.5em;
+}

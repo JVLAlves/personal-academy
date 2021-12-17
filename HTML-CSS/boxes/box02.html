@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grouping Tags</title>
+    <style>
+        @charset "UTF-8";
+        @import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        body{
+            font-family: Arial, Helvetica, Sans-serif;
+            background-color:#EDD1B0;
+            margin:0px;
+        }
+        header{
+            background-color:white;
+            padding:10px;
+            margin:10px;
+        }
+        main{
+            background-color:white;
+            padding:10px;
+            margin:10px;
+            border-radius:20px;
+        }
+        footer{
+            background-color:black;
+            color:white;
+            text-align:center;
+            padding:5px;
+        }
+        footer > p {
+            margin:0px;
+        }
+        article{
+            background-color:#FFE8D6;
+            padding:5px;
+        }
+        article > aside{
+            background-color: #FFDCC2;
+        }
+        nav {
+            background-color: dimgray;
+            padding:3px;
+            box-shadow: 2px 2px 4px 1px rgb(0,0,0,0.315);
+        }
+        nav > a {
+            text-decoration:none;
+            color:white;
+            font-weight: bold;
+            margin-right:10px
+        }
+        nav > a:hover {
+            text-decoration:underline;
+        }
+    </style>
+</head>
+<body>
+<!--Header é como uma div, mas mais semantico. É utilizado para cabecalhos e menus.-->
+<header>
+  <h1>Meu site</h1>
+    <!--Nav é um agrupamento de links-->
+  <nav>
+    <a href="#">link-01</a>
+      <a href="#">link-02</a>
+      <a href="#">link-03</a>
+      <a href="#">link-04</a>
+
+  </nav>
+</header>
+<!-- Main é como uma div, mas mais semântica. É utilizado para o conteúdo principal.-->
+<main>
+    <section id="assuntos">
+    </section>
+    <section id="noticias">
+        <article>
+            <h2>EDITORAS ENTRAGAM JORNAIS FRESQUINHOS DE BICICLETA NAS RUAS DE GENOVA EM HOMENAGEM AO DIA DO JORNAL</h2>
+            <P>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab adipisci, distinctio ea facere omnis porro praesentium quasi temporibus tenetur ut voluptate voluptatem! Deserunt, dignissimos enim expedita nulla praesentium quisquam ut.</P>
+            <aside>
+                Escrito por E. P. Sakima em 06/12/2021
+            </aside>
+        </article>
+        <article></article>
+    </section>
+</main>
+<!--Footer é como uma div, mas mais semântica. É utilizado par rodapés.-->
+<footer>
+<p>&copy; Criado por J. V. L. Alves</p>
+</footer>
+</body>
+</html>

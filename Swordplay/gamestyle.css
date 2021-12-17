@@ -1,0 +1,23 @@
+
+.hidden{
+    display: none;
+}
+.seen{
+    display:block;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+#lost{
+    color: red;
+    
+}
+
+#won{
+    color:greenyellow;
+    
+}
+
+footer button{
+    margin-top:1em;
+}

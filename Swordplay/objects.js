@@ -25,14 +25,17 @@ export var troops = { "enemies": [
 ]
 };
 
-export var character = {
-
-    class: classes["villager"],
-}
-
-export function Character(nickname, Class){
+export function Player(nickname, Class){
     this.nickname = nickname;
     this.Class = Class
 }
 
+export function enemyRoulette(){
+    let rand = Math.floor(Math.random() * (troops.enemies.length))
+    console.log("Number: " + rand)
+    let chosenEnemy = troops.enemies[rand]
+    console.log(chosenEnemy)
+    return chosenEnemy
+
+}
 

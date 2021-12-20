@@ -1,4 +1,5 @@
-import {troops, character} from "./objects.js"
+import {troops} from "./objects.js"
+import {character} from "./menuactions.js"
 
 var startButton = document.querySelector("button#starting")
 startButton.addEventListener("click", battle, false)
@@ -8,6 +9,7 @@ export async function battle(){
     console.log("Setting Thing Up")
     let gameScreen = document.querySelector("div#screen")
     gameScreen.setAttribute("class", "seen")
+    var PlayerName = character.nickname
     var playerLife = Number.parseInt(character.class.health)
     var playerDmg = Number.parseInt(character.class.damage)
 
@@ -24,7 +26,7 @@ export async function battle(){
     let c = 0
     while (true){
         console.log(`Round ${c}`)
-        let playerTextContent = `Player: ${playerLife}`
+        let playerTextContent = `${PlayerName}: ${playerLife}`
         let enemyTextContent = `${enemyName}: ${enemyLife}`
         plyrHp.innerHTML = playerTextContent
         enemHp.innerHTML = enemyTextContent
@@ -54,4 +56,6 @@ export async function battle(){
 
 function sleep(milliseconds) {  
     return new Promise(resolve => setTimeout(resolve, milliseconds));  
- }  
+ } 
+
+

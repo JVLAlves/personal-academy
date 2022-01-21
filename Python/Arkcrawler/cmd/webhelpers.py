@@ -1,19 +1,11 @@
 import time
-import re
-import requests
-import pandas as pd
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 
-# import json
-
-url = "https://www.arknights.global"
-
-
-def GetLatestNews(link):
+def getlatestnews(link):
     option = Options()
     option.headless = True
     service = ChromeService(executable_path=ChromeDriverManager().install())
@@ -31,7 +23,7 @@ def GetLatestNews(link):
     return news_link
 
 
-def TranscriptNews(link):
+def transcriptnews(link):
     option = Options()
     option.headless = True
     service = ChromeService(executable_path=ChromeDriverManager().install())
@@ -57,13 +49,3 @@ def TranscriptNews(link):
     secondriver.quit()
 
     return textinformation, imagesurllist
-
-
-news_url = GetLatestNews(url)
-infos, imgs = TranscriptNews(news_url)
-
-for txt in infos:
-    print(txt)
-
-for img in imgs:
-    print(img)

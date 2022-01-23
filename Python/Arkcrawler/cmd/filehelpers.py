@@ -1,11 +1,12 @@
 import os
 
-def createnewsportifolio(dirpath):
 
+def createnewsportifolio(dirpath):
     isExists = os.path.exists(dirpath)
 
     if not isExists:
         os.makedirs(dirpath)
+
 
 def writedown(paragraphs, images):
     dirpath = str(os.environ['HOME']) + "/desktop/arknights-news-portfolio"

@@ -21,7 +21,7 @@ def getlatestnews(link):
     driver.quit()
 
     news_link = link + href
-    return news_link
+    return news_link, href
 
 
 def transcriptnews(link):

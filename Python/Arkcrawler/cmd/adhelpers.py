@@ -1,8 +1,6 @@
-
 from plyer import notification as notif
 
 def newsnotification(titulo):
-
     notif.notify(
         title=titulo,
         message="a Arknights Event was announced.",

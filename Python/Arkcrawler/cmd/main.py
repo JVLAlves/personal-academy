@@ -1,16 +1,25 @@
 import filehelpers
 import webhelpers
-import adhelpers
+import logs
 
+files = []
+dictAllNews = {}
 url = "https://www.arknights.global"
-news_url, news_number = webhelpers.getlatestnews(url)
-notRead = filehelpers.verifynewsnumber(news_number)
 
-if notRead:
-    paragraphs, srcs = webhelpers.transcriptnews(news_url)
+filehelpers.init()
+logs.init()
+news_numbers = webhelpers.getlatestnews(url)
 
-    filehelpers.writedown(paragraphs, srcs)
-    adhelpers.newsnotification(paragraphs[0], "A new event was announced")
+for num in news_numbers:
+    news_url = url + num
+    news = webhelpers.getContent(news_url)
+    files.append(news["path"])
+    dictAllNews.update({news["path"]: news})
+
+alreadyExists, fileQueue = filehelpers.verifyExistentFiles(files)
+
+if not alreadyExists:
+    for file in fileQueue:
+        filehelpers.writedown(file, dictAllNews[file]["paragraphs"], dictAllNews[file]["srcs"])
 else:
-    adhelpers.newsnotification("no 'new' news", "There is no new information.")
-
+    print("There is nothing to see here.")

@@ -1,6 +1,9 @@
+import logging
 import os
 import glob
-import consts
+import time
+
+from app.Arkcrawler.cmd import consts
 
 
 def verifyExistentFiles(incomingFiles):
@@ -21,26 +24,32 @@ def verifyExistentFiles(incomingFiles):
 def createnewsportifolio(dirpath):
 
     isExists = os.path.exists(dirpath)
+    logging.info(f'PATH "{dirpath}" already exists.')
 
     if not isExists:
         os.makedirs(dirpath)
+        time.sleep(2)
+        logging.info(f'PATH "{dirpath}" did not exists. Now it was created.')
 
 
 def writedown(file, paragraphs, images):
 
-    f = open(file, "w")
+    try:
+        f = open(file, "w")
+    except:
+        logging.fatal(f"NOT ABLE TO CREATE FILE NAMED '{file}'.")
+    else:
+        for line in paragraphs:
+            f.write(line + "\n")
 
-    for line in paragraphs:
-        f.write(line + "\n")
+        f.write("\n")
+        f.write("Get the images displayed in the news by acessing this urls:")
+        f.write("\n")
 
-    f.write("\n")
-    f.write("Get the images displayed in the news by acessing this urls:")
-    f.write("\n")
+        for url in images:
+            f.write(url + "\n")
 
-    for url in images:
-        f.write(url + "\n")
-
-    f.close()
+        f.close()
 
 def listExistentFiles():
     dirpathsearch = str(os.environ['HOME']) + "/desktop/arknights-news-portifolio/*/*"
@@ -55,3 +64,5 @@ def init():
     createnewsportifolio(consts.DIR_PATH + '/contest')
     createnewsportifolio(consts.DIR_PATH + '/events')
     createnewsportifolio(consts.DIR_PATH + '/etc')
+
+    logging.info(f'FILE HELPERS INITIALIZED SUCCESSFULLY.')

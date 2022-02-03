@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ArknightsApp</class>
+ <widget class="QMainWindow" name="ArknightsApp">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>597</width>
+    <height>256</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="GetLatestNewsObj">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>210</y>
+      <width>121</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Get Latest News</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="GetEventsNewsObj">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>130</y>
+      <width>121</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Get Event News</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="GetContestNewsObj">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>170</y>
+      <width>121</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Get Contest News</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="SingleNewsCheckboxObj">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>130</y>
+      <width>101</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Single News</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="AllNewsCheckboxObj">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>130</y>
+      <width>85</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>All News</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="AppTitle">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>20</y>
+      <width>501</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/Icon/Captura de Tela 2021-12-11 às 19.20.54.jpeg&quot;/&gt;&lt;span style=&quot; font-size:24pt; font-weight:600;&quot;&gt;    ARKNIGHTS NEWS COLLECTOR&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="LeaveButtonObj">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>210</y>
+      <width>71</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Leave</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../../../../../Dropbox/My Mac (iMac-de-Joao.local)/Desktop/Background/resourceQtDesigner.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>LeaveButtonObj</sender>
+   <signal>clicked()</signal>
+   <receiver>ArknightsApp</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>525</x>
+     <y>222</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>298</x>
+     <y>127</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

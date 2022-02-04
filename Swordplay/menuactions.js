@@ -1,3 +1,4 @@
+/*eslint-disable max-lines */
 
 import {removeDiv, getDiv, setTitle, createImageButtonOnDiv, singleSimpleMessage, sleep} from "./helpers.js"
 import {troops, Player, enemyRoulette} from "./objects.js"
@@ -27,6 +28,7 @@ document.body.addEventListener("click", function(evt){
         case evt.target.matches("button#chooseClass"):
             document.querySelector("button#chooseClass").addEventListener("click",
             listClasses(), false)
+            break
         case evt.target.matches("div#classListToChoose"):
          document.querySelector("div#classListToChoose").addEventListener("click",
         function(evnt){
@@ -34,7 +36,8 @@ document.body.addEventListener("click", function(evt){
         }, false)
             break
         case evt.target.matches("button#starting"):
-            document.querySelector("button#starting").addEventListener("click", battle(), false)
+            document.querySelector("button#starting").addEventListener("click", Showdown(), false)
+        break
 }}, false)
 
 
@@ -87,7 +90,7 @@ export function listClasses(){
     removeDiv()
     var div = document.querySelector("div#classListToChoose")
     for (let Class of classList){
-        createImageButtonOnDiv(div, Class[1]["classname"], Class[1]["classname"] + "-class", Class[1]["src"])
+        div.appendChild(createImageButtonOnDiv(Class[1]["classname"], Class[1]["classname"] + "-class", Class[1]["src"]))
     }
     div.setAttribute("class", "seen")
 }
@@ -109,9 +112,10 @@ export function changeClassTo(classname){
 export async function battle(){
     //clearing
     removeDiv()
+    document.querySelector("p#lost").setAttribute("class", "hidden")
+    document.querySelector("p#won").setAttribute("class", "hidden")
 
     //verifying
-     
     let charClass = character.class
     if (charClass === undefined){
         let div = getDiv("Alert")
@@ -121,57 +125,212 @@ export async function battle(){
         return
     }
 
-    //Setting entities information
+    //Setting Screen information
     console.log("Setting Thing Up")
     let gameScreen = document.querySelector("div#screen")
-    let chosenEnemy = enemyRoulette()
-    console.log(chosenEnemy)
     gameScreen.setAttribute("class", "seen")
-    var PlayerName = character.nickname
-    var playerLife = Number.parseInt(character.class.health)
-    var playerDmg = Number.parseInt(character.class.damage)
-
     let plyrHp = document.querySelector("p#player")
+    plyrHp.setAttribute("class", "seen")
     let enemHp = document.querySelector('p#enemy')
 
-    var enemyName = chosenEnemy.classname
-    var enemyLife = Number.parseInt(chosenEnemy.health)
-    var enemyDmg = Number.parseInt(chosenEnemy.damage)
+    console.log(character.class)
+
+    var player = {
+
+        "name": character.nickname,
+        "health": Number.parseInt(character.class.health),
+        "dmg": Number.parseInt(character.class.damage),
+        damageBuff: async function(){
+            document.addEventListener("keydown",function(evt){
+                if (evt.key === "Shift" && player.damageBuffUsages > 0 ){
+                    document.querySelector("p#player").setAttribute("class", "dmgUP")
+                    player.dmg += 20
+                    player.damageBuffUsages -= 1
+                    console.log("Dmg +Up", `Usages: ${player.damageBuffUsages}`)
+                }
+            }, false)},
+        "damageBuffUsages": 3
+
+    }
+
+    const ChosenEnemy = enemyRoulette()
+
+    var enemy = {
+        "name": ChosenEnemy.classname,
+        "health": Number.parseInt(ChosenEnemy.health),
+        "dmg": Number.parseInt(ChosenEnemy.damage),
+        taunt: function(){console.log("Hello!")},
+    }
 
     //Battle Begin
     console.log("Starting Battle")
     
     let c = 0
     while (true){
+        //looping configs
+
+        //Interface Changes
         console.log(`Round ${c}`)
-        let playerTextContent = `${PlayerName}: ${playerLife}`
-        let enemyTextContent = `${enemyName}: ${enemyLife}`
+        let playerTextContent = `${player.name}: ${player.health}`
+        let enemyTextContent = `${enemy.name}: ${enemy.health}`
         plyrHp.innerHTML = playerTextContent
         enemHp.innerHTML = enemyTextContent
-        playerLife -= enemyDmg
-        enemyLife -= playerDmg
 
-        if (playerLife <= 0 || enemyLife <= 0){
-            let playerTextContent = `${PlayerName}: ${playerLife}`
-            let enemyTextContent = `${enemyName}: ${enemyLife}`
+        //Numbers changes
+        player.damageBuff()
+        console.log(player.dmg)
+        player.health -= enemy.dmg
+        enemy.health -= player.dmg
+        enemy.taunt()
+
+        //End Verification
+        if (player.health <= 0 || enemy.health <= 0){
+            let playerTextContent = `${player.name}: ${player.health}`
+            let enemyTextContent = `${enemy.name}: ${enemy.health}`
             plyrHp.innerHTML = playerTextContent
             enemHp.innerHTML = enemyTextContent
-            if (playerLife <= 0){
+            if (player.health <= 0){
                 let loseMessage = document.querySelector("p#lost")
                 loseMessage.setAttribute("class", "seen")
                 return
-            } else if (enemyLife <= 0){
+            } else if (enemy.health <= 0){
                 let wonMessage = document.querySelector("p#won")
                 wonMessage.setAttribute("class", "seen")
                 return
             }
         }
-        c++
-        await sleep(1500)
+
+        c++ //Round counter
+        await sleep(1500) //End of the Round interval
 
     }
+
 }
 
 
+export async function Showdown(){
+    //clearing
+    removeDiv()
+    document.querySelector("p#lost").setAttribute("class", "hidden");
+    document.querySelector("p#won").setAttribute("class", "hidden");
+    let divScreen = document.querySelector("div#screen");
 
+    //verifying
+    let charClass = character.class
+    if (charClass === undefined){
+        let div = getDiv("Alert")
+        singleSimpleMessage(div, "You must choose a class first")
+        var sButton = document.querySelector("button#chooseClass")
+        sButton.setAttribute("class", "doHighlight")
+        return
+    }
 
+    //Setting Screen information
+    console.log("Setting Thing Up")
+    let gameScreen = document.querySelector("div#screen")
+    gameScreen.setAttribute("class", "showdown")
+
+    console.log(character.class)
+
+    var ChosenEnemy = enemyRoulette()
+
+    var enemy = {
+
+        "icon": ChosenEnemy.icon,
+        "name": ChosenEnemy.classname,
+        "health": Number.parseInt(ChosenEnemy.health),
+        "dmg": Number.parseInt(ChosenEnemy.damage),
+        defend: function(){
+            let fired = false;
+            document.addEventListener("keydown",function(evt){
+                if (!fired){
+                   fired = true;
+                   if (evt.key === "ArrowRight"){
+                    document.querySelector("img#EnemyWeapon").setAttribute("class", "seen")
+                    setTimeout(function(){
+                        document.querySelector("img#EnemyWeapon").setAttribute("class", "enemyDefends")}, 1)
+ 
+                    }
+                }
+            }, false);
+        }
+    }
+
+    window.enemy = enemy
+
+    var player = {
+
+        "icon": character.class.src,
+        "name": character.nickname,
+        "health": Number.parseInt(character.class.health),
+        "dmg": Number.parseInt(character.class.damage),
+        atkFront: function(){
+            let fired = false;
+            document.addEventListener("keydown",function(evt){
+                if (!fired){
+                   fired = true;
+                   if (evt.key === "ArrowRight"){
+                    document.querySelector("img#PlayerWeapon").setAttribute("class", "seen")
+                    setTimeout(function(){
+                        document.querySelector("img#PlayerWeapon").setAttribute("class", "atkFront")}, 1)
+                    
+                    enemy.health -= player.dmg
+
+                    console.log(`${player.name} attacked from the Front. enemies life at ${Number.parseInt(enemy.health)}`)
+           } 
+                }
+            }, false)},
+        damageBuff: async function(){
+            document.addEventListener("keydown",function(evt){
+                if (evt.key === "shift" && player.damageBuffUsages > 0 ){
+                    document.querySelector("p#player").setAttribute("class", "dmgUP")
+                    player.dmg += 20
+                    player.damageBuffUsages -= 1
+                    console.log("Dmg +Up", `Usages: ${player.damageBuffUsages}`)
+                }
+            }, false)
+        },
+        "damageBuffUsages": 3
+
+    }
+
+    let enDiv = getDiv("enemies-icon", ".classic")
+    let enemyIcon = document.createElement("img");
+    enemyIcon.setAttribute("src", enemy.icon)
+    enemyIcon.setAttribute("alt", `Enemies-${ChosenEnemy.weapon}`)
+    enemyIcon.setAttribute("id","EnemyWeapon")
+    divScreen.insertBefore(enDiv.appendChild(enemyIcon), divScreen.firstChild)
+
+    let plDiv = getDiv("player-icon",".classic")
+    let playerIcon = document.createElement("img");
+    playerIcon.setAttribute("src", player.icon)
+    playerIcon.setAttribute("alt", `Players-${character.class.weapon}`)
+    playerIcon.setAttribute("id", "PlayerWeapon")
+    divScreen.insertBefore(plDiv.appendChild(playerIcon), divScreen.firstChild)
+
+    //Battle Begin
+    console.log("Starting Battle")
+    
+    while (true){
+
+        player.atkFront()
+        enemy.defend()
+         //End of the Round interval
+        await sleep(2500)
+
+         //End Verification
+         if (player.health <= 0 || enemy.health <= 0){
+            if (player.health <= 0){
+                let loseMessage = document.querySelector("p#lost")
+                loseMessage.setAttribute("class", "seen")
+                return
+            } else if (enemy.health <= 0){
+                let wonMessage = document.querySelector("p#won")
+                wonMessage.setAttribute("class", "seen")
+                return
+            }
+        }
+        
+
+    }
+}

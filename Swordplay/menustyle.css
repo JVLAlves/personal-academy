@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 body{
     font-family: 'Rubik', sans-serif;
@@ -24,6 +24,7 @@ div#classListToChoose input{
 }
 div#classListToChoose input{
 background-color:transparent;
+size: 12px;
 border:none;
 }
 body {
@@ -39,20 +40,38 @@ div#Villager-classinput > input{
     transition: 0.5s;
     }
 
+div#Dwarf-classinput > input{
+        transition: 0.5s;
+        }
+
+div#Lancer-classinput > input{
+    transition: 0.5s;
+    }
+
 div#Samurai-classinput > input:hover{
     transform: scale(1.1);
     display:inline;
 }
 
+div#Dwarf-classinput > input:hover{
+    transform: scale(1.1);
+    display:inline;
+}
+
+
+div#Lancer-classinput > input:hover{
+    transform: scale(1.1);
+    display:inline;
+}
 
 
 div#Villager-classinput > input:hover{
-    transform: scale(1.2);
+    transform: scale(1.1);
     display: inline;
 }
 
 div#classListToChoose input:focus {
-    transform: scale(0.5) rotate(360deg)
+    transform: scale(0.75) rotate(360deg)
     }
     
 
@@ -66,8 +85,11 @@ div#classListToChoose input:active + p{
     display: none;
 }
 
-
-div#screen{
+.classic{
+    display: inline;
+    
+}
+.antiqueGame{
     background-image: url(./images/antiquePaper-600.jpg);
     margin:20px 0px 0px 10px;
     padding: 5px 0px 10px 20px;
@@ -92,16 +114,19 @@ p#lost{
 p#won{
     color: #2a9d8f;
     font-weight: bold;
-    font-size: 1.25em;   
+    font-size: 2em;   
 }
 
 .hidden{
 
     display: none;
 }
-
 .seen{
-    display:inline-block;
+    display: inline-block;
+}
+p#won.seen, p#lost.seen{
+    display:block;
+    
 }
 
 .dynamicCreated{
@@ -114,6 +139,15 @@ p#won{
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.356);
     
 
+}
+p#player, p#enemy{
+    font-family: 'Kanit', sans-serif;
+    font-weight: 300;
+}
+
+img#EnemyWeapon{
+    transform: scaleX(-1);
+    margin-left: 200px;
 }
 
 .doHighlight{
@@ -133,3 +167,65 @@ p#won{
     display: inline;
 }
 
+.showdown{
+    margin-top: 30px;
+    margin-left: 20px;
+}
+
+.dmgUP{
+    display:inline-block;
+    animation: dmgUpTwo 0.7s ease-out
+
+}  
+
+.atkFront{
+    transition: all 1s;
+    animation-name: AtkFront;
+    animation-duration: 1s;
+}
+
+.enemyDefends{
+    transition: all 1s;
+    animation-name: enemyDefends;
+    animation-duration: 1s;
+}
+
+@keyframes dmgUpOne{
+0%{transform: translateX(0px)}
+50%{transform: translateX(-20px);}   
+75%{transform: translateX(0px);}
+100%{    font-weight: 900;
+    color: #741c23;}
+}
+
+@keyframes dmgUpTwo{
+    0%{
+        font-weight: 900;
+        color: #741c23;
+        transform: translateY(0px)}
+    50%{
+        font-weight: 900;
+        color: #741c23;
+        transform: translateY(60px);}   
+    100%{
+        font-weight: 900;
+        color: #741c23;
+        transform: translateY(0px)}
+    }
+
+@keyframes AtkFront{
+    0%{transform: translateX(-20px)}
+    25%{transform: translateX(200px)}
+    50%{transform: rotate(135deg)}
+    75%{transform: rotate(0deg)}
+    100%{}
+}
+
+@keyframes enemyDefends {
+    0%{transform: translateX(-10px)}
+    15%{transform: translateX(200px)}
+    30%{transform: rotate(-90deg)}
+    75%{transform: rotate(0deg)}
+    100%{}
+
+}

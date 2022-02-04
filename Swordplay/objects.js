@@ -1,29 +1,27 @@
 import {katana, axe, spear} from './weapon.js'
 import {classes} from "./classes.js"
 
-export var troops = { "enemies": [
+export var troops = {"enemies": [
 
-    {
-        "classname": "Samurai",
+    {"icon": classes["samurai"].src,
+        "classname": classes["samurai"].classname,
         "weapon": katana["weapon_name"],
         "damage": katana["damage"],
-        "health": 125
-    },
+        "health": 125},
 
-    {
-        "classname": "Dwarf", 
+    {"icon": classes["dwarf"].src,
+        "classname": classes["dwarf"].classname, 
         "weapon": axe["weapon_name"],
         "damage": axe["damage"], 
-        "health":200
-    },
+        "health": 200},
     {
+        "icon": classes["lancer"].src,
         "classname": "Lancer",
         "weapon": spear["weapon_name"],
         "damage": spear["damage"], 
-         "health":100
+         "health": 100
     }
-]
-};
+]};
 
 export function Player(nickname, Class){
     this.nickname = nickname;
@@ -31,11 +29,12 @@ export function Player(nickname, Class){
 }
 
 export function enemyRoulette(){
-    let rand = Math.floor(Math.random() * (troops.enemies.length))
+    let rand = Math.floor(Math.random() * troops.enemies.length)
     console.log("Number: " + rand)
     let chosenEnemy = troops.enemies[rand]
     console.log(chosenEnemy)
     return chosenEnemy
 
 }
+
 

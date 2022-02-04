@@ -4,12 +4,12 @@ export var katana = {
 }
 
 export var axe = {
-    "weapon_name":"axe",
+    "weapon_name": "axe",
     "damage": 30
 }
 
 export var spear = {
-    "weapon_name":"spear",
+    "weapon_name": "spear",
     "damage": 10
 }
 

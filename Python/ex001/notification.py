@@ -1,4 +1,4 @@
-from plyer import notification as notif
+from plyer import notification
 
 # title: title of the notification
 # message: Message of the Notification
@@ -10,9 +10,8 @@ from plyer import notification as notif
 title = 'Hello Amazing people'
 message = 'Make something useful'
 
-notif.notify(
-    title=title, 
+notification.notify(
+    title=title,
     message=message,
-    app_icon=None,
-    timeout=10,
-    oast=False)
+    app_icon="/home/joao/books.png",
+    timeout=5)

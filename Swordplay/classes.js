@@ -4,7 +4,7 @@ export var classes = {
 
     "villager": {
     
-    "src":"images/smeralderest.png",
+    "src": "images/smeralderest.png",
     "classname": "Villager",
     "weapon": fist["weapon_name"],
     "damage": fist["damage"],
@@ -20,5 +20,21 @@ export var classes = {
     "health": 100
     },
 
-    }
+    "dwarf": {
 
+    "src": "images/Axe.png",
+    "classname": "Dwarf",
+    "weapon": axe["weapon_name"],
+    "damage": axe["damage"],
+    "health": 100
+
+    },
+
+    "lancer": {
+    "src": "images/Spear-100x400.png",
+    "classname": "Lancer",
+    "weapon": spear["weapon_name"],
+    "damage": spear["damage"],
+    "health": 100
+    },
+    }

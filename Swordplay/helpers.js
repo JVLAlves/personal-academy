@@ -1,13 +1,15 @@
 export function removeDiv(exceptionDiv){
-    var divsToRemove = document.querySelectorAll("div.dynamicCreated")
-    var divsToHide = document.querySelectorAll("div.seen")
-    var divsToClear = document.querySelectorAll("div.clearable")
+    var divsToRemove = document.querySelectorAll(".dynamicCreated")
+    var divsToHide = document.querySelectorAll(".seen")
+    var divsToClear = document.querySelectorAll(".clearable")
+    var divsToErase = document.querySelectorAll("div#screen > img")
     var divIdlist = []
 
 
     //Selecionando divs para apagar
-    for (let index in Object.keys(divsToRemove)){
-        let divId = String(Object.entries(divsToRemove)[index][1].id)
+    for (let value of Object.values(divsToRemove)){
+        console.log("Value of divsToRemove: " + value.id)
+        let divId = String(value.id)
 
         if (divId === ""){
             continue
@@ -20,7 +22,7 @@ export function removeDiv(exceptionDiv){
         }
        
 
-        let divQuery = `div#` + divId
+        let divQuery = `#` + divId
         divIdlist.push(divQuery)
         console.log(divIdlist)
 
@@ -30,15 +32,20 @@ export function removeDiv(exceptionDiv){
 
     for (let value of Object.values(divsToHide)){
         console.log("values: " + value.id)
-        document.querySelector(`div#${value.id}`).setAttribute("class", "hidden")
+        document.querySelector(`#${value.id}`).setAttribute("class", "hidden")
     }
 
     for (let value of Object.values(divsToClear)){
         console.log("values: " + value.id)
-        document.querySelector(`div#${value.id}`).remove()
+        document.querySelector(`#${value.id}`).remove()
     }
     for (let y of divIdlist){
         document.querySelector(y).remove()
+    }
+
+    for (let y of divsToErase){
+        console.log("values: " + y.id)
+        document.querySelector(`#${y.id}`).remove()
     }
     
 }
@@ -53,20 +60,21 @@ export function getDiv(idv, cssClass){
     var query = `div#${idv}`
     console.log(`div#${idv} of class ${cssClass}`)
     var locator = document.querySelector(query)
-    if (locator == null) {
+    if (locator === null) {
         var division = document.createElement('div')
         var id = document.createAttribute('id')
         var group = document.createAttribute('class')
-        if (cssClass !== undefined){
-            group.value = cssClass
-        } else{
+        if (cssClass === undefined){
             group.value = "dynamicCreated"
+           
+        } else{
+            group.value = cssClass
         }
         id.value = idv
         division.setAttributeNode(id)
         division.setAttributeNode(group)
         document.body.appendChild(division)
-        var div =  document.querySelector(query)
+        var div = document.querySelector(query)
         return div
     } else {
         locator.innerHTML = ""
@@ -82,7 +90,7 @@ export function origin(){
     console.log(urlOrigin, fileOrigin, hrefOrigin)
 }
 
-export function createImageButtonOnDiv(div, name, id, image){
+export function createImageButtonOnDiv( name, id, image){
     let aDiv = getDiv(id + "input", "clearable")
     let para = document.createElement("p")
     let input = document.createElement("input")
@@ -108,7 +116,7 @@ export function createImageButtonOnDiv(div, name, id, image){
     input.setAttributeNode(src)
     aDiv.appendChild(input)
     aDiv.appendChild(para)
-    div.appendChild(aDiv)
+    return aDiv
     
     
 }
@@ -121,5 +129,28 @@ export function singleSimpleMessage(div, msg){
 }
 
 export function sleep(milliseconds) {  
-    return new Promise(resolve => setTimeout(resolve, milliseconds));  
- } 
+    //eslint-disable-next-line no-promise-executor-return
+    return new Promise((resolve) => setTimeout(resolve, milliseconds));  
+ }
+
+export function callTestSpace(){
+
+    let space = getDiv("TestingSpace")
+    return space
+}
+
+export function testSubject(){
+
+    let testSpace = callTestSpace();
+
+    document.addEventListener("keydown", function(evnt){
+        if (evnt.key === "Shift"){
+            let text = document.createTextNode("Shifted")
+            let para = document.createElement("para")
+            para.appendChild(text)
+            testSpace.appendChild(para)
+        }
+    } )
+
+
+}   

@@ -4,7 +4,7 @@ import os
 def verifynewsnumber(news_number):
     splitted_news_number = news_number.rsplit('/')
     news_number = splitted_news_number[2]
-    news_register_dirpath = str(os.environ['HOME']) + '/desktop/arknights-news-portifolio/news-register'
+    news_register_dirpath = str(os.environ['HOME']) + '/arknights-news-portifolio/news-register'
     registerExists = os.path.exists(news_register_dirpath)
 
     if not registerExists:
@@ -36,7 +36,7 @@ def createnewsportifolio(dirpath):
 
 
 def writedown(paragraphs, images):
-    dirpath = str(os.environ['HOME']) + "/desktop/arknights-news-portifolio"
+    dirpath = str(os.environ['HOME']) + "/arknights-news-portifolio"
 
     createnewsportifolio(dirpath)
     title = ''

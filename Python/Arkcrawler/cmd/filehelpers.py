@@ -1,40 +1,40 @@
 import os
+import glob
+import consts
 
 
+<<<<<<< HEAD
 def verifynewsnumber(news_number):
     splitted_news_number = news_number.rsplit('/')
     news_number = splitted_news_number[2]
     news_register_dirpath = str(os.environ['HOME']) + '/arknights-news-portifolio/news-register'
     registerExists = os.path.exists(news_register_dirpath)
+=======
+def verifyExistentFiles(incomingFiles):
+>>>>>>> 87f4dbc66585fab46bb38f3efcbeab5ae8f049a3
 
-    if not registerExists:
-        os.makedirs(news_register_dirpath)
+    filesRef = listExistentFiles()
+    inCommon = set(filesRef).intersection(incomingFiles)
+    if len(incomingFiles) == len(inCommon):
 
-    register_file = news_register_dirpath + "/.news_number_register.txt"
-    register_fileExist = os.path.exists(register_file)
-    if not register_fileExist:
-        f = open(register_file, 'w')
-        f.write(news_number)
-        f.close()
-        return True
+        return True, None
     else:
-        f = open(register_file, 'r')
-        news_read = f.read()
-        alreadyRead = news_read == news_number
+        for files in inCommon:
+            incomingFiles.remove(files)
+        return False, incomingFiles
 
-        if not alreadyRead:
-            return True
-        else:
-            return False
+
 
 
 def createnewsportifolio(dirpath):
+
     isExists = os.path.exists(dirpath)
 
     if not isExists:
         os.makedirs(dirpath)
 
 
+<<<<<<< HEAD
 def writedown(paragraphs, images):
     dirpath = str(os.environ['HOME']) + "/arknights-news-portifolio"
 
@@ -49,8 +49,11 @@ def writedown(paragraphs, images):
                 titleline = p.replace(" ", "_")
                 title = dirpath + "/" + titleline
                 break
+=======
+def writedown(file, paragraphs, images):
+>>>>>>> 87f4dbc66585fab46bb38f3efcbeab5ae8f049a3
 
-    f = open(title, "w")
+    f = open(file, "w")
 
     for line in paragraphs:
         f.write(line + "\n")
@@ -58,9 +61,22 @@ def writedown(paragraphs, images):
     f.write("\n")
     f.write("Get the images displayed in the news by acessing this urls:")
     f.write("\n")
+
     for url in images:
         f.write(url + "\n")
 
     f.close()
 
-verifynewsnumber('/news/142')
+def listExistentFiles():
+    dirpathsearch = str(os.environ['HOME']) + "/desktop/arknights-news-portifolio/*/*"
+    files = glob.glob(dirpathsearch)
+    return files
+
+def init():
+
+    createnewsportifolio(consts.DIR_PATH)
+    createnewsportifolio(consts.DIR_PATH + '/logs')
+
+    createnewsportifolio(consts.DIR_PATH + '/contest')
+    createnewsportifolio(consts.DIR_PATH + '/events')
+    createnewsportifolio(consts.DIR_PATH + '/etc')

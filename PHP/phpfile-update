@@ -1,0 +1,12 @@
+#1/bin/bash
+actual=$(pwd);
+webserver=/opt/lampp/htdocs/;
+file="$actual"/$1;
+exfile="$webserver""$file"
+
+if [ -e "$exfile" ]; then
+sudo rm -r "$exfile";
+echo "$exfile" deleted;
+fi;
+sudo cp "$file" "$webserver";
+

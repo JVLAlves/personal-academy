@@ -5,8 +5,16 @@
     <title>index.php - 17/03/2022</title>
 </head>
 <body>
-<?php
+    <pre>
+        <?php
+            require_once "controleRemoto.php";
 
-?>
+            $c = new ControleRemoto();
+            $c->ligar();
+            $c->abrirMenu();
+
+
+        ?>
+    </pre>
 </body>
 </html>

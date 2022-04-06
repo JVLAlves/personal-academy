@@ -1,0 +1,18 @@
+<svg width="600" height="600">
+ <circle r="125" cx="250" cy="250" fill="#ffd100" stroke="black" stroke-width="2"/>
+
+
+<path d="
+M100,100 l150,150 L150, 200 
+A50,50 0  1,0 100,150
+Q20, 250 200,300
+C200,400 375,350 400,300
+Z
+"
+style="stroke: #ff0000;
+stroke-width:3;
+fill: none;
+"
+/>
+
+</svg>

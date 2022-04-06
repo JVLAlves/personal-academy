@@ -1,5 +1,5 @@
 import pandas as pd
-tfuds_df = pd.read_csv("tablestats.csv")
+tfuds_df = pd.read_csv("Q1TPROEST.csv")
 
 
 frequencia_simples = tfuds_df['fi']

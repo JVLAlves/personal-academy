@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="df276270-c42f-4046-a59c-a47978798999" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../PHP/POO/EX01/Publicacao.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/POO/EX01/livraria.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/POO/EX01/livro.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/POO/EX01/pessoa.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/POO/SPOFF/SPOFF.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/POO/SPOFF/SPOFF.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/POO/SPOFF/classes/battleGadget.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/POO/SPOFF/classes/character.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/POO/SPOFF/classes/samurai.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/POO/UEC /index.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/POO/UEC /luta.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/POO/UEC /lutador.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/POO/heranca/aluno.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/POO/heranca/funcionario.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/POO/heranca/pessoa.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/POO/heranca/professor.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/POO/poliformismo/animals.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/POO/poliformismo/canguru.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/POO/poliformismo/mamifero.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/POO/poliformismo/peixe.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/POO/poliformismo/reptil.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/POO/poliformismo/zoo.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/learningPHP/arrays/arrays.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/portifolio/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/portifolio/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/portifolio/.idea/portifolio.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/portifolio/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/portifolio/spoff/html/spoff.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/portifolio/spoff/php/classes/character.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/portifolio/spoff/php/classes/dwarf.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/portifolio/spoff/php/classes/elf.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/portifolio/spoff/php/classes/mage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/portifolio/spoff/php/classes/man.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/portifolio/spoff/php/images/Axe.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/portifolio/spoff/php/images/Axe.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/portifolio/spoff/php/images/Sword.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/portifolio/spoff/php/images/Sword.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/portifolio/spoff/php/images/staff.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/portifolio/spoff/php/images/staff.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/portifolio/spoff/php/images/waraxe.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/portifolio/spoff/php/images/waraxe.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PHP/portifolio/spoff/php/spoff.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/excellentV1/confighelpers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/excellentV1/interface.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/excellentV2/images/Axe.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/excellentV2/images/Sword.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/excellentV2/images/Sword.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/excellentV2/images/axe.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/excellentV2/images/staff.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/excellentV2/images/staff.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/excellentV2/images/symbol.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/excellentV2/images/waraxe.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/excellentV2/images/waraxe.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/excellentV2/interface.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../resis/resis.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../resis/resis_classes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../resis/resis_functions.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../statistics/Q1TPROEST.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../statistics/Q1TPROEST.ods" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../statistics/statsObjs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MECSOLOS/mecsol.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MECSOLOS/msObjects.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../POO/calc/calc.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../POO/calc/operators.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../POO/char.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../POO/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../PHP/POO/UEC /style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../POO/swordplay/background.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../POO/swordplay/classes.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../PHP/portifolio/spoff/html/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../POO/swordplay/ghost.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../POO/swordplay/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PythonAcademy/SymPy/learningSymPy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../POO/swordplay/spaceship.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../POO/swordplay/ufo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/excellent.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/excellent.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProfileWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/excellentV1/ProfileWindow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProfileWindow.ui" beforeDir="false" afterPath="$PROJECT_DIR$/excellentV1/ProfileWindow.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProfileWindowLegacy.py" beforeDir="false" afterPath="$PROJECT_DIR$/excellentV1/ProfileWindowLegacy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tableformom.py" beforeDir="false" afterPath="$PROJECT_DIR$/excellentV1/Tableformom.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tableformom.ui" beforeDir="false" afterPath="$PROJECT_DIR$/excellentV1/Tableformom.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exConsts.py" beforeDir="false" afterPath="$PROJECT_DIR$/excellentV1/exConsts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/excel.py" beforeDir="false" afterPath="$PROJECT_DIR$/excellentV1/excel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hangman/hangman.py" beforeDir="false" afterPath="$PROJECT_DIR$/../hangman/hangman.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hydraulics/helpers.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hydraulics/hydro.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../physics/essentials.py" beforeDir="false" afterPath="$PROJECT_DIR$/excellentV1/config.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../physics/helpers.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../physics/units.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../statistics/stats.py" beforeDir="false" afterPath="$PROJECT_DIR$/../statistics/stats.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Swordplay/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Swordplay/.idea/Swordplay.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Swordplay/.idea/Swordplay.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Swordplay/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Swordplay/.idea/vcs.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/venv/lib/python3.8/site-packages/PySimpleGUI/PySimpleGUI.py" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="27QIH9zN7xltoUgRYLuRvqwB9pV" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/excellentV1" />
+      <recent name="$PROJECT_DIR$/excellentV2" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.interface (1)">
+    <configuration name="interface (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="excellent" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/excellentV1" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/excellentV1/interface.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="interface" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="excellent" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/excellentV2" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/excellentV2/interface.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="excellent" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/excellentV2" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/excellentV2/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.interface (1)" />
+        <item itemvalue="Python.interface" />
+        <item itemvalue="Python.test" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="df276270-c42f-4046-a59c-a47978798999" name="Changes" comment="" />
+      <created>1649245792517</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1649245792517</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>

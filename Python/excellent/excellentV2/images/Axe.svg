@@ -1,0 +1,18 @@
+<svg width="3125" height="9534" viewBox="0 0 3125 9534" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="25" y="2571" width="600" height="6800" fill="#630A04"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M63 9349C42.0132 9349 25 9366.01 25 9387V9451C25 9471.99 42.0132 9489 63 9489H183.12C190.149 9514.93 213.847 9534 242 9534H408C436.153 9534 459.851 9514.93 466.88 9489H587C607.987 9489 625 9471.99 625 9451V9387C625 9366.01 607.987 9349 587 9349H63Z" fill="#AFADAD"/>
+<rect y="9349" width="650" height="45" rx="22.5" fill="#807E7E"/>
+<rect x="25" y="800" width="600" height="2500" fill="#646464"/>
+<rect x="319" y="800" width="600" height="1250" fill="#646464"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M1700 2850L1875 2675L3125 1425L1875 175L1700 0V350L625 1425L1700 2500V2850ZM2500 1425L1875 800L1250 1425L1875 2050L2500 1425Z" fill="#646464"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M1519 800H919V2050H1519V1694L1250 1425L1519 1156V800Z" fill="#646464"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M25 3300L325 3600L625 3300H25Z" fill="#646464"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M560.999 1345L481 1425L560.999 1505V1345Z" fill="#C4C4C4"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M973.439 1332.29L1551.73 754L1552.51 754.772L1628.73 769.926L1643.89 846.152L1644.26 846.527L1644.01 846.778L1644.01 846.795L1644 846.785L1065.97 1424.82L1644.34 2003.18L1643.99 2003.53L1628.73 2080.26L1552.01 2095.51L1551.73 2095.79L946.337 1490.39H556.345V1489.82L513 1424.96L556.345 1360.11V1359.54H946.198L973.441 1332.3L973.439 1332.29Z" fill="#0D0628"/>
+<path d="M1700 350V0L3125 1425L2775.5 1425.5L1700 350Z" fill="#B8B5B5"/>
+<path d="M1700 2500.5V2850.5L3125 1425.5L2775.5 1425L1700 2500.5Z" fill="#AFADAD"/>
+<rect x="24" y="1318" width="922" height="44" fill="#C4C4C4"/>
+<rect x="924" y="1339.38" width="1249.73" height="31.7022" transform="rotate(-45 924 1339.38)" fill="#C4C4C4"/>
+<rect width="922" height="43" transform="matrix(1 0 0 -1 24 1530)" fill="#C4C4C4"/>
+<rect width="1249.49" height="31.7022" transform="matrix(0.707107 0.707107 0.707107 -0.707107 924 1509.46)" fill="#C4C4C4"/>
+</svg>

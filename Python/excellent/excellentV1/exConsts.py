@@ -1,9 +1,8 @@
 import os
 import string
 
-FILENAME = str(os.environ['HOME']) + '/desktop/excel/pypulation.xlsx'
 FORMAT_CURRENCY_BRL = '"R$" #,##0_);("R$" #,##0)'
-BEGINNING_ROW = 3
+BEGINNING_ROW = 2
 PATIENT_COLUMN = 'A'
 PAT_ROW = BEGINNING_ROW + 1
 PAYPERSESSION_COLUMN = 'B'
@@ -59,5 +58,11 @@ MONTH_COLS = {
     },
 
 }
+
+def GetMonths():
+    months = []
+    for m in MONTH_COLS:
+        months.append(MONTH_COLS[m]['nome'])
+    return months
 
 ALPHABET = list(string.ascii_uppercase)

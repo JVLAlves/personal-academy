@@ -1,0 +1,28 @@
+<svg width="825" height="11164" viewBox="0 0 825 11164" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M713 11018.5C713 11056.8 681.393 11093.6 625.132 11120.7C568.871 11147.8 492.565 11163 413 11163C333.435 11163 257.129 11147.8 200.868 11120.7C144.607 11093.6 113 11056.8 113 11018.5L413 11018.5H713Z" fill="#D6B22D"/>
+<rect x="113" y="8930" width="600" height="2017" fill="#D0333F"/>
+<rect x="60" y="10947" width="705" height="72" rx="36" fill="#C9A227"/>
+<path d="M410 10522L660 10697L410 10872L160 10697L410 10522Z" fill="#0D0628"/>
+<path d="M410 10100L660 10275L410 10450L160 10275L410 10100Z" fill="#0D0628"/>
+<path d="M410 9678L660 9853L410 10028L160 9853L410 9678Z" fill="#0D0628"/>
+<path d="M410 9256L660 9431L410 9606L160 9431L410 9256Z" fill="#0D0628"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M160 8990L410 9165L660 8990H160Z" fill="#0D0628"/>
+<rect x="113" y="8851" width="600" height="139" fill="#D6B22D"/>
+<rect x="113" y="8652" width="600" height="115" fill="#D6B22D"/>
+<rect x="113" y="8652" width="600" height="115" fill="black" fill-opacity="0.02"/>
+<rect x="113" y="8981" width="15" height="600" transform="rotate(-90 113 8981)" fill="#C9A227"/>
+<rect x="113" y="8953" width="15" height="600" transform="rotate(-90 113 8953)" fill="#C9A227"/>
+<rect x="113" y="8908" width="15" height="600" transform="rotate(-90 113 8908)" fill="#C9A227"/>
+<rect x="113" y="8880" width="15" height="600" transform="rotate(-90 113 8880)" fill="#C9A227"/>
+<rect x="192" y="8713" width="8" height="53" fill="#C9A227"/>
+<rect x="165" y="8739" width="8" height="29" fill="#C9A227"/>
+<rect x="219" y="8688" width="8" height="78" fill="#C9A227"/>
+<rect x="246" y="8662" width="8" height="104" fill="#C9A227"/>
+<rect x="598" y="8671" width="8" height="50" fill="#C9A227"/>
+<rect x="614" y="8698" width="8" height="35" fill="#C9A227"/>
+<rect x="113" y="8852" width="25" height="600" transform="rotate(-90 113 8852)" fill="#A85101"/>
+<rect x="113" y="8791" width="25" height="600" transform="rotate(-90 113 8791)" fill="#A85101"/>
+<rect y="8784" width="825" height="96" rx="48" fill="#81807F"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M559 463.849C405 -7.20362 113 0.00636109 113 0.00636109V1442.01H713C713 1442.01 713 934.903 559 463.849ZM713 1442.01H113V8652H713V1442.01Z" fill="#C4C4C4"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M426.45 1292.89C414.9 869.526 393 876.006 393 876.006V2172.01H438C438 2172.01 438 1716.25 426.45 1292.89ZM438 8652V2172.01H393V8652H438Z" fill="#7C7A7A" fill-opacity="0.25"/>
+</svg>

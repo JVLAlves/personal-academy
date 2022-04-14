@@ -1,13 +1,11 @@
 import filehelpers
 import webhelpers
-import logs
 
 files = []
 dictAllNews = {}
 url = "https://www.arknights.global"
 
 filehelpers.init()
-logs.init()
 news_numbers = webhelpers.getlatestnews(url)
 
 for num in news_numbers:

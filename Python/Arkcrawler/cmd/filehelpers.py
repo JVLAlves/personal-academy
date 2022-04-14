@@ -3,16 +3,14 @@ import glob
 import consts
 
 
-<<<<<<< HEAD
+
 def verifynewsnumber(news_number):
     splitted_news_number = news_number.rsplit('/')
     news_number = splitted_news_number[2]
     news_register_dirpath = str(os.environ['HOME']) + '/arknights-news-portifolio/news-register'
     registerExists = os.path.exists(news_register_dirpath)
-=======
-def verifyExistentFiles(incomingFiles):
->>>>>>> 87f4dbc66585fab46bb38f3efcbeab5ae8f049a3
 
+def verifyExistentFiles(incomingFiles):
     filesRef = listExistentFiles()
     inCommon = set(filesRef).intersection(incomingFiles)
     if len(incomingFiles) == len(inCommon):
@@ -34,25 +32,7 @@ def createnewsportifolio(dirpath):
         os.makedirs(dirpath)
 
 
-<<<<<<< HEAD
-def writedown(paragraphs, images):
-    dirpath = str(os.environ['HOME']) + "/arknights-news-portifolio"
-
-    createnewsportifolio(dirpath)
-    title = ''
-    if paragraphs[0] != "":
-        titleline = paragraphs[0].replace(" ", "_") + ".txt"
-        title = dirpath + "/" + titleline
-    else:
-        for p in paragraphs:
-            if p != "":
-                titleline = p.replace(" ", "_")
-                title = dirpath + "/" + titleline
-                break
-=======
 def writedown(file, paragraphs, images):
->>>>>>> 87f4dbc66585fab46bb38f3efcbeab5ae8f049a3
-
     f = open(file, "w")
 
     for line in paragraphs:

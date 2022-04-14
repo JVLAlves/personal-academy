@@ -5,7 +5,6 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 import consts
-import logging
 
 
 def getlatestnews(link):
@@ -49,7 +48,6 @@ def getlatestnews(link):
         hrefs.append(href)
 
     driver.quit()
-    logging.debug(hrefs)
     return hrefs
 
 

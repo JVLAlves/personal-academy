@@ -9,5 +9,4 @@
 
 * Create a way to display the News (Display GUI, File, whatever)
 * Error handling popups
-* Incorporate Icon or favicon
 * Remove prints

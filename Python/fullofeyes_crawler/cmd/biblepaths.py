@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from translate import Translator
+import PySimpleGUI as sg
 
 en_bible = [
     'Genesis',
@@ -212,15 +213,17 @@ toBooks = {
     "Apocalipse": "Revelation"
 }
 class Image:
-    def __init__(self, href:str, src:str, dimensions:list):
+    def __init__(self, href:str, src:str, dimensions:list, ):
         self.href = href
         self.src = src
         self.width = float(dimensions[0])
         self.height = float(dimensions[1])
         self.dimensions = (self.width, self.height)
+
 class Passage:
-    def __init__(self, book, chapter, verses, img=None):
+    def __init__(self, book, chapter, verses, img=None, version=None):
         translator = Translator(from_lang="pt-br", to_lang="english")
+        self.__name = version
         if book in en_bible:
             self.book = book
         else:
@@ -229,8 +232,12 @@ class Passage:
                 if eng_book not in en_bible:
                     raise Exception
             except:
-                self.book = toBooks[book.capitalize()]
-                print("Manual Translate", self.book)
+                if book.capitalize in toBooks.keys():
+                    self.book = toBooks[book.capitalize()]
+                    print("Manual Translate", self.book)
+                else:
+                    sg.popup_error(f"There is no book in bible called {book}", title="not found", font="Arial 16 bold")
+                    raise Exception(f"There is no book in bible called {book}")
             else:
                 if eng_book == book and book in toBooks:
                     self.book = toBooks[book.capitalize()]
@@ -243,8 +250,21 @@ class Passage:
         self.verses = verses
         self.img = img
 
-    def show(self):
-        return f"{self.book} {self.chapter}:{self.verses}"
+    def show(self, to_request=False):
+        if to_request:
+            return f"{self.book}{self.chapter}:{self.verses}"
+        else:
+            return f"{self.book} {self.chapter}:{self.verses}"
+
     def display(self):
         print(f"{self.book} {self.chapter}:{self.verses}")
+
+    def getName(self):
+        if self.__name is not None and self.__name != '':
+            return (f"{self.book} {self.chapter}:{self.verses} {self.__name}")
+        else:
+            return (f"{self.book} {self.chapter}:{self.verses}")
+    def setName(self, version):
+        self.__name = version
+
 

@@ -75,9 +75,6 @@ def Analyse(href: str, head: bool = True):
     for ex in toExclude:
         verses_and_images.remove(ex)
 
-
-
-
     object_verses = []
     for vm in verses_and_images:
         pattern = re.compile("([^\W\d_]+)\s(\d{1,3}):(\d{1,3}-\d{1,3}|\d{1,3})")
@@ -111,7 +108,6 @@ def compare(ref: object, available: list):
             print(f"{verse.show()} is a Composed Verse")
             composed_verse.append(verse)
 
-
     object_verses = []
     for sv in single_verses:
         if re.match(single_pattern, sv.show()):
@@ -122,11 +118,45 @@ def compare(ref: object, available: list):
             object_verses.append(cv)
 
     closest = []
-    for obj in object_verses:
-        if obj.book == ref.book and obj.chapter == ref.chapter and obj.verses == ref.verses:
-            return True, obj
-        elif obj.book == ref.book and obj.chapter == ref.chapter:
-            closest.append(obj)
+    history = []
+    print(ref.book, ref.chapter, ref.verses)
+    if ref.book is not None and ref.chapter is not None and ref.verses is not None:
+        for obj in object_verses:
+            if obj.book == ref.book and obj.chapter == ref.chapter and obj.verses == ref.verses:
+                if obj.book.lower() == "psalm":
+                    obj.book = "psalms"
+                else:
+                    obj.book = obj.book.lower()
+                return True, obj
+            elif obj.book == ref.book and obj.chapter == ref.chapter:
+                if obj.book.lower() == "psalm":
+                    obj.book = "psalms"
+                else:
+                    obj.book = obj.book.lower()
+                if obj.show() in history:
+                    obj.setName(f"V{history.count(obj.show())+1}")
+                closest.append(obj)
+                history.append(obj.show())
+    elif ref.book is not None and ref.chapter is not None and ref.verses is None:
+        for obj in object_verses:
+            if obj.book == ref.book and obj.chapter == ref.chapter:
+                if obj.book.lower() == "psalm":
+                    obj.book = "psalms"
+                else:
+                    if obj.show() in history:
+                        obj.setName(f"V{history.count(obj.show()) + 1}")
+                    closest.append(obj)
+                    history.append(obj.show())
+    elif ref.book is not None and ref.chapter is None and ref.verses is None:
+        for obj in object_verses:
+            if obj.book == ref.book:
+                if obj.book.lower() == "psalm":
+                    obj.book = "psalms"
+                else:
+                    if obj.show() in history:
+                        obj.setName(f"V{history.count(obj.show()) + 1}")
+                    closest.append(obj)
+                    history.append(obj.show())
 
     if len(closest) != 0:
         return False, closest

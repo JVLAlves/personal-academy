@@ -1,6 +1,7 @@
 import PySimpleGUI as sg
 import originum as ori
 import multiprocessing as mp
+import REunion as reun
 
 application_icon = "img/liskarm-icon.png"
 
@@ -56,7 +57,7 @@ class Main:
                 break
             elif event == 'search':
                 self.window.close()
-                self.chargin.start()
+                #self.chargin.start()
                 news_number = ["latest", "other", "nines"]
 
                 for value in values:
@@ -75,24 +76,62 @@ class Main:
                 self.news_to_focus = ori.Search(self.news_indication, self.category)
                 print(f"this is the searched news '{self.news_to_focus}'.")
             elif self.news_indication == "other":
-                self.news_to_focus = values['specific_news']
+                print(values['specific_news'])
+                self.news_to_focus = f"/news/{values['specific_news']}"
                 print(f"this is the specific new '{self.news_to_focus}'.")
 
-            for news in self.news_to_focus:
-                print(f"Focusing on News '{news}'")
-                news_content = ori.Focus(news)
+            if isinstance(self.news_to_focus, list):
+                for news in self.news_to_focus:
+                    print(f"Focusing on News '{news}'")
+                    news_content, url = ori.Focus(news)
+                    if len(news_content) != 0:
+                    #self.chargin.terminate()
+                    #self.chargin_window.close()
+                        return news_content, url
+
+            else:
+                news_content, url = ori.Focus(self.news_to_focus)
                 if len(news_content) != 0:
-                    self.chargin.terminate()
-                    self.chargin_window.close()
-                    return news_content
+                # self.chargin.terminate()
+                # self.chargin_window.close()
+                    return news_content, url
+
 
         exit()
+class Return:
+    def __init__(self, paragraphs:list):
+        content = []
+        for p in paragraphs:
+            if p.isupper():
+                column = [sg.Push(), sg.Text(p, font="Arial 12 bold", text_color="#000000"), sg.Push()]
+            else:
+                column = [sg.Push(), sg.Text(p, font="Arial 10", text_color="#000000"), sg.Push()]
+            content.append(column)
+        layout = [
+            [sg.VPush()],
+            [sg.Column(content, justification="justify", scrollable=True)],
+            [sg.VPush()],
+            [sg.Push(), sg.Button("see on page", key="-see-")],
+            [sg.VPush()]
+        ]
+
+        self.window = sg.Window("News", icon=application_icon, auto_size_text=True, size=(1250, 625)).layout(layout).finalize()
+        self.window.maximize()
+        self.window.bind("<Key-Escape>", "esc")
+        while True:
+            event, _ = self.window.Read()
+            if event == sg.WIN_CLOSED or event == "esc":
+                break
+            elif event == "-see-":
+                pass
+        self.window.close()
 
 
-main = Main()
-new = main.init()
-for p in new:
-    print(p)
+if __name__ == "__main__":
+    main = Main()
+    new, url = main.init()
+    arknews = reun.Arknews(new, url)
+    arknews.short()
 
 """
 

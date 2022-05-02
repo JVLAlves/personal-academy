@@ -67,6 +67,14 @@ def Focus(href:str, link:str="https://www.arknights.global", head:bool=True):
     for p in paragraphs:
         para = p.text
 
+        ind = repr(para).find(r"\n")
+        print(f'NEW LINE FOUND IN INDEX {ind}')
+        if repr(para).find(r"\n") != -1:
+            paras = para.splitlines()
+            for parag in paras:
+                print(parag)
+                textcontent.append(parag)
+            continue
         textcontent.append(para)
 
     images = news_body.find_elements(by="tag name", value='img')
@@ -78,8 +86,7 @@ def Focus(href:str, link:str="https://www.arknights.global", head:bool=True):
         src = imgmkup['src']
         imagesurllist.append(src)
 
-    secondriver.quit()
 
-    return textcontent
+    return textcontent, link + href
 
 

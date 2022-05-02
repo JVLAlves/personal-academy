@@ -1,0 +1,69 @@
+STATUS ANCHOR:
+- XPATH: //a[@class='selected'][normalize-space()='Status']
+- CSS SELECTOR: ul[id='status'] a[class='selected']
+
+PROFILE ANCHOR:
+- XPATH: //ul[@id='status']//a[@class='not-selected'][normalize-space()='Profile']
+- CSS SELECTOR: ul[id='status'] li:nth-child(1) a:nth-child(1)
+
+# PARA VER STATUS É NECESSÁRIO ESCOLHER O ESTÁGIO (E0, E1, E2) E O NÍVEL DO OPERADOR.
+STATS BOX CELL # ESCOLHA DO ESTÁGIO
+-> NON-ELITE BUTTON:
+    - XPATH: //button[normalize-space()='Non-Elite']
+    - CSS SELECTOR: .rank-button.current-button
+-> ELITE 1:
+    - XPATH: //button[normalize-space()='Elite 1']
+    - CSS SELECTOR: .rank-button[data-tab='e1']
+-> ELITE 2:
+    - XPATH: //button[normalize-space()='Elite 2']
+    - CSS SELECTOR: .rank-button[data-tab='e2']
+
+SLIDE CONTAINER # ESCOLHE DO NÍVEL
+-> LEVEL:
+    - XPATH: //span[@id='level-value']
+    - CSS SELECTOR: #level-value
+-> LEVEL-UP ARROW:
+    - XPATH: //i[@class='fa fa-arrow-right']
+    - CSS SELECTOR: .fa.fa-arrow-right
+-> LEVEL-DOWN ARROW:
+    - XPATH: //i[@class='fa fa-arrow-left']
+    - CSS SELECTOR: .fa.fa-arrow-left
+
+STATUS VALUES
+-> HP:
+    - PARENT: //div[@id='stats-container']//span[1]
+    - XPATH: //div[@id='stat-hp']
+    - CSS SELECTOR: #stat-hp
+-> ATK:
+    - PARENT: //div[@id='stats-container']//span[1]
+    - XPATH: //div[@id='stat-atk']
+    - CSS SELECTOR: #stat-atk
+-> DEF:
+    - PARENT: //div[@id='stats-container']//span[1]
+    - XPATH: //div[@id='stat-def']
+    - CSS SELECTOR: #stat-def
+-> RES:
+    - PARENT: //div[@class='stat-box-cell']//div[1]//div[1]
+    - XPATH: //span[@id='arts-resist']
+    - CSS SELECTOR: #arts-resist
+-> REDEPLOY TIME:
+    - PARENT XPATH: //body/div[@class='dialog-off-canvas-main-canvas']/main[@role='main']/section[@id='content']/div[@id='content-inner']/div/div[@id='block-gamepressbase-content']/article[@id='node-23346']/div[@class='operator-page-cell']/div[@class='stat-box-cell']/div[@class='other-stat-cell']/div[1]
+    - PARENT CSS SELECTOR: //body/div[@class='dialog-off-canvas-main-canvas']/main[@role='main']/section[@id='content']/div[@id='content-inner']/div/div[@id='block-gamepressbase-content']/article[@id='node-23346']/div[@class='operator-page-cell']/div[@class='stat-box-cell']/div[@class='other-stat-cell']/div[1]
+    - XPATH: //div[normalize-space()='70']
+    - CSS SELECTOR: div[class='stat-box-cell'] div:nth-child(1) div:nth-child(1)
+-> DP COST:
+    - PARENT: //div[@class='stat-box-cell']//div[1]//div[1]
+    - XPATH: //span[@id='operator-cost']
+    - CSS SELECTOR: #operator-cost
+-> BLOCK:
+    - PARENT: //div[@class='stat-box-cell']//div[1]//div[1]
+    - XPATH: //span[@id='operator-block']
+    - CSS SELECTOR: #operator-block
+-> ATTACK INTERVAL:
+    - PARENT XPATH: //body/div[@class='dialog-off-canvas-main-canvas']/main[@role='main']/section[@id='content']/div[@id='content-inner']/div/div[@id='block-gamepressbase-content']/article[@id='node-23346']/div[@class='operator-page-cell']/div[@class='stat-box-cell']/div[@class='other-stat-cell']/div[1]
+    - PARENT CSS SELECTOR: body > div:nth-child(2) > main:nth-child(14) > section:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > article:nth-child(2) > div:nth-child(2) > div:nth-child(30) > div:nth-child(4) > div:nth-child(5)
+    - XPATH: //div[normalize-space()='1.25']
+    - CSS SELECTOR: div[class='stat-box-cell'] div:nth-child(1) div:nth-child(1)
+
+IMAGE TAG
+- XPATH: //div[@id='image-tab-1']//a//img

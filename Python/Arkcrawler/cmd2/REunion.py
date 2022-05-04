@@ -24,7 +24,8 @@ SINGLE_NAMED_OPERATOR = re.compile("^(★+):\s(\w+)(?:\n|\s$)")
 GROUP_SINGLE_NAMED_OPERATOR = re.compile("^(★+):\s(\w+)\s\/\s(\w+)(?:\n|\s$)")
 SINGLE_NAMED_TAGGED_OPERATOR = re.compile("^(★+):\s(\w+)\s(?:\(.*\)|\[.*])(?:\n|\s$)")
 
-TAGS = re.compile(r"..*([\[\(]Limited[\]\)])(?:$|\n|\s$)$|.*(\(.*\))(?:$|\n|\s$)|.*(\[.*])(?:$|\n|\s$)")
+TAG_LIMITED = re.compile(r"..*([\[\(]Limited[\]\)]).*")
+TAGS = re.compile(r".*(\(.*\))(?:$|\n|\s$)|.*(\[.*])(?:$|\n|\s$)")
 IS_OPERATOR = re.compile("^(★{3,6}):\s(\w+)(?:\s|\n)")
 ALL_OPERATORS = re.compile("^(★+):\s(.*)(?:|\n|\s$)")
 
@@ -132,9 +133,26 @@ class Arknews:
                 for operator in operators:
                     print(repr(operator), re.match(TAGS, operator))
                     if re.match(TAGS, operator):
+                        tag_list = []
+                        print(f"Tags: {re.findall(TAG_LIMITED, operator)}")
+                        limited_tag_list = re.findall(TAG_LIMITED, operator)
+                        if len(limited_tag_list) != 0:
+                            if limited_tag_list[0]!= '':
+                                tag_list.append(limited_tag_list[0])
                         tag , *blank = re.findall(TAGS, operator)[0]
-                        print("tags found ", tag, blank)
-                        operator = operator.replace(tag, "").strip()
+                        if tag != '':
+                            tag_list.append(tag)
+
+                        for b in blank:
+                            if b != '':
+                                tag_list.append(b)
+
+
+
+                        print(f"tags found tags: {tag_list if len(tag_list) != 0 else None}")
+                        for tag in tag_list:
+                            operator = operator.replace(tag, "").strip()
+
                     if operator not in self.operators_stars.keys():
                         self.operators_stars[operator] = star_count
                     if operator not in self.highlighted_operators:

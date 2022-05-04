@@ -47,6 +47,8 @@ def liskcraw(operator:str, elite:int=0, max_level:bool=True, default_level:int=1
         operator = operator.replace(" the ", " ")
     if operator.find(" ") != -1:
         operator = operator.replace(" ", "-")
+    if operator.find("'") != -1:
+        operator = operator.replace("'", '')
 
     url = link + operator.lower()
     option = Options()

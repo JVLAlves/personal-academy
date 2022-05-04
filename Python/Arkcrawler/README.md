@@ -7,6 +7,19 @@
 
 ## TODO LIST
 
-* Create a way to display the News (Display GUI, File, whatever)
+* Cortar incrementos ao nome dos Operadores, como, (Limited) e (Rate 50% up)
 * Error handling popups
-* Remove prints
+* Remover prints ou substituir por logs
+* transformar codigo fonte em software ou app de Desktop 
+* Separar melhor os paragrafos (tentar objetificar as linhas)
+* Anexar as imagens as noticias
+* Gerenciar requests de mais de uma noticia (Fresh News)
+* * Rever tudo e comentar
+
+
+## Possible Features
+### Automation
+#### Automatizar envio das noticias de forma que se houver algum evento novo adiante ele automaticamente acrescentará a minha agenda.
+### Database
+#### Criar banco de dados com informações a cerca de cada Operador, bem como Combos, combinações, estratégias e Formações. 
+#### --> melhor que seja outro programa, um projeto a par

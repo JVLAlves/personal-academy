@@ -1,5 +1,6 @@
 #this is the module which handles the Crawling part
-
+#TODO: Handle multiple searches (Fresh News)
+import logging
 import time
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -51,7 +52,7 @@ def Search(number:str, type:str, link:str="https://www.arknights.global", head:b
     return hrefs
 
 def Focus(href:str, link:str="https://www.arknights.global", head:bool=True):
-    print("Focusing in... ", href)
+    logging.info(f"Focusing in... {href}")
     option = Options()
     option.headless = head
     seconservice = ChromeService(executable_path=ChromeDriverManager().install())
@@ -68,11 +69,9 @@ def Focus(href:str, link:str="https://www.arknights.global", head:bool=True):
         para = p.text
 
         ind = repr(para).find(r"\n")
-        print(f'NEW LINE FOUND IN INDEX {ind}')
         if repr(para).find(r"\n") != -1:
             paras = para.splitlines()
             for parag in paras:
-                print(parag)
                 textcontent.append(parag)
             continue
         textcontent.append(para)

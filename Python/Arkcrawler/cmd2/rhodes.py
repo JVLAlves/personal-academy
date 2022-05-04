@@ -1,7 +1,22 @@
+#this is the main module
+#TODO: Error handling popups (half-way done. I dont see any other use yet)
+#TODO: Remover prints ou substituir por logs
+#TODO: transformar codigo fonte em software ou app de Desktop
+#TODO: Separar melhor os paragrafos (tentar objetificar as linhas)
+#TODO: Anexar as imagens as noticias
+#TODO: Gerenciar requests de mais de uma noticia (Fresh News)
+#TODO: Rever tudo e comentar
+
+import datetime
+import os
+
 import PySimpleGUI as sg
 import originum as ori
 import multiprocessing as mp
 import REunion as reun
+import logging
+
+
 
 application_icon = "img/liskarm-icon.png"
 
@@ -27,9 +42,9 @@ class charge:
 class Main:
     chargin_window = charge()
     chargin = mp.Process(target=chargin_window.init)
-    news_indication = ''
-    category = ''
-    news_to_focus = ''
+    news_indication = None
+    category = None
+    news_to_focus = None
 
     def __init__(self):
 
@@ -50,13 +65,15 @@ class Main:
         self.window = sg.Window("Main Window",icon=application_icon).layout(layout)
 
     def init(self):
+        opened = 0
         while True:
+            opened+=1
             event, values = self.window.Read()
+            logging.info(f"Main window opened ({opened})")
 
             if event == sg.WIN_CLOSED:
                 break
             elif event == 'search':
-                self.window.close()
                 #self.chargin.start()
                 news_number = ["latest", "other", "nines"]
 
@@ -65,36 +82,67 @@ class Main:
                         if values[value] and value in news_number:
                             self.news_indication = value
 
+                if self.news_indication is None:
+                    sg.popup_error("No indication marked.\nPlease, choose a new indication.",title="Error", font="Arial 16 bold")
+                    logging.error("indication not marked")
+                    continue
+
+
                 news_type = ['all', 'contest', 'event']
                 for value in values:
                     if values[value] != '':
                         if values[value] and value in news_type:
                             self.category = value
 
+                if self.category is None:
+                    if self.news_indication == "other":
+                        pass
+                    else:
+                        sg.popup_error("No category marked.\nPlease, choose a new category.",title="Error", font="Arial 16 bold")
+                        logging.error("category not marked")
+                        continue
+
+
             if self.news_indication in ["latest", "nines"]:
-                print("Searching for news")
+                logging.info("Searching for news")
                 self.news_to_focus = ori.Search(self.news_indication, self.category)
-                print(f"this is the searched news '{self.news_to_focus}'.")
+                logging.info(f"this is the found news '{self.news_to_focus}'.")
             elif self.news_indication == "other":
-                print(values['specific_news'])
+                logging.info(values['specific_news'])
                 self.news_to_focus = f"/news/{values['specific_news']}"
-                print(f"this is the specific new '{self.news_to_focus}'.")
+                logging.info(f"this is the specific new '{self.news_to_focus}'.")
+
+            if self.news_to_focus is None:
+                sg.popup_error("Error founding news", title="Error", font="Arial 16 bold")
+                logging.error("news not found")
+                continue
 
             if isinstance(self.news_to_focus, list):
                 for news in self.news_to_focus:
-                    print(f"Focusing on News '{news}'")
-                    news_content, url = ori.Focus(news)
-                    if len(news_content) != 0:
-                    #self.chargin.terminate()
-                    #self.chargin_window.close()
-                        return news_content, url
+                    logging.info(f"Focusing on News '{news}'")
+                    try:
+                        news_content, url = ori.Focus(news)
+                    except:
+                        sg.popup_error(f"{news} not found", title="Error", font="Arial 16 bold")
+                        logging.error(f"{news} not exists")
+                        exit()
+                    else:
+                        if len(news_content) != 0:
+                            # self.chargin.terminate()
+                            # self.chargin_window.close()
+                            return news_content, url
 
             else:
-                news_content, url = ori.Focus(self.news_to_focus)
-                if len(news_content) != 0:
-                # self.chargin.terminate()
-                # self.chargin_window.close()
-                    return news_content, url
+                try:
+                    news_content, url = ori.Focus(self.news_to_focus)
+                except:
+                    sg.popup_error(f"{self.news_to_focus} not found", title="Error", font="Arial 16 bold")
+                    exit()
+                else:
+                    if len(news_content) != 0:
+                        # self.chargin.terminate()
+                        # self.chargin_window.close()
+                        return news_content, url
 
 
         exit()
@@ -128,22 +176,31 @@ class Return:
 
 
 if __name__ == "__main__":
+    date = datetime.datetime.today()
+    today = date.strftime("%Y_%m_%d")
+    if os.path.exists("../log/"):
+        if os.path.exists(f"../log/process_run_{today}.log"):
+            pass
+        else:
+            with open(f"../log/process_run_{today}.log", "x"):
+                pass
+    else:
+        os.mkdir("../log/")
+        with open(f"../log/process_run_{today}.log", "x"):
+            pass
+
+    logging.basicConfig(filename=f"../log/process_run_{today}.log", filemode="w", format="%(asctime)s - %(levelname)s : %(message)s", level=logging.DEBUG)
+    logging.warning(f"Process started {date.now()}")
     main = Main()
     new, url = main.init()
-    arknews = reun.Arknews(new, url)
+    with open(".arknew.txt", "w") as file:
+        for line in new:
+            file.write(f"{line}\n")
+
+    with open(".arknew.txt", 'r') as f:
+        lines = f.readlines()
+
+    os.remove(".arknew.txt")
+
+    arknews = reun.Arknews(lines, url)
     arknews.short()
-
-"""
-
-TODO LIST:
-
-* Create a way to display the News (Display GUI, File, whatever)
-* Error handling popups
-* Remove prints
-
-(kawaii)
-https://github.com/JVLAlves/personal-academy/blob/master/Python/Arkcrawler/images/4148b681c1b08841f38ba3a275c435df-removebg-preview.png
-
-(kowai)
-https://github.com/JVLAlves/personal-academy/blob/master/Python/Arkcrawler/images/Liskarm.full.3266949.png
-"""

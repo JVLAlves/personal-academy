@@ -1,13 +1,9 @@
-"""
-API Key: AIzaSyDHcfQ7QtZdk7q37-XGOHOg9SDEefxShos
-"""
-from google.auth.transport.requests import Request
-from google.oauth2.credentials import Credentials
+#this module handles the Google Calendar API connection
+#TODO: Make a way to the any user use the API connecton
+import logging
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
 import pickle
-import pprint
 from datetime import *
 import os
 from pytz import *
@@ -30,9 +26,9 @@ def CreateEvent(title:str, duration:str):
     format_ark = "%B %d, %Y, %H:%M"
     format_duration = "%Y-%m-%dT%H:%M:%S%z"
     dates = duration.replace(" (UTC-7)", "")
-    print(dates)
+    logging.info(dates)
     split_dates = dates.split(" – ")
-    print(split_dates)
+    logging.info(split_dates)
     start_str = split_dates[0]
     end_str = split_dates[1]
 

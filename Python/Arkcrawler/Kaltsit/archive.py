@@ -30,7 +30,6 @@ class operator:
         self.status = character["stats"]
         self.skills = character["skills"]
 
-    def 
 def status(driver:webdriver):
     status = ["hp", "atk", "def"]
 
@@ -48,27 +47,27 @@ def status(driver:webdriver):
     return stats
 
 def skill(driver:webdriver):
-
-    # skill clicker XPATH - //li[normalize-space()='Skill 2']
-    # SKILL NAME CSS_SELECTOR - div[id='skill-tab-1'] a:nth-child(2)
-    # SP COST CSS_SELECTOR - div[id='skill-tab-1'] div[class='sp-cost'] div[class='effect-description skill-upgrade-tab-1 current-tab']
-    # DURATION = div[id='skill-tab-1'] div[class='skill-effect-parent'] div[class='effect-description skill-upgrade-tab-1 current-tab']
-    # EFFECT - div[id='skill-tab-1'] div[class='skill-description'] div[class='effect-description skill-upgrade-tab-1 current-tab'] (BS4)
-
-    #SKILL 1
     global sp_cost
     skills = {}
-    skill = driver.find_element(by=By.CSS_SELECTOR, value="div[id='skill-tab-1'] a:nth-child(2)").text
-    skill_name = skill.replace("Skill 1: ", "")
-    element = driver.find_element(by=By.CSS_SELECTOR, value="div[id='skill-tab-1'] div[class='sp-cost'] div[class='effect-description skill-upgrade-tab-1 current-tab']").text
-    if element != '':
-        sp_cost = int(element)
-    element = driver.find_element(by=By.CSS_SELECTOR, value="div[id='skill-tab-1'] div[class='skill-effect-parent'] div[class='effect-description skill-upgrade-tab-1 current-tab']").text
-    time = element.replace(" Seconds", "")
-    if time == "-":
-        duration = None
+    try:
+        skill = driver.find_element(by=By.CSS_SELECTOR, value="div[id='skill-tab-1'] a:nth-child(2)").text
+    except:
+        return None
     else:
-        duration = int(time)
+        skill_name = skill.replace("Skill 1: ", "")
+        element = driver.find_element(by=By.CSS_SELECTOR, value="div[id='skill-tab-1'] div[class='sp-cost'] div[class='effect-description skill-upgrade-tab-1 current-tab']").text
+        if element != '':
+            sp_cost = int(element)
+        else: sp_cost = 0
+        element = driver.find_element(by=By.CSS_SELECTOR, value="div[id='skill-tab-1'] div[class='skill-effect-parent'] div[class='effect-description skill-upgrade-tab-1 current-tab']").text
+        time = element.replace(" Seconds", "")
+        if time == "-":
+            duration = None
+        else:
+            if time.isdigit():
+                duration = int(time)
+            else:
+                duration = None
 
     skill_effect = driver.find_element(by=By.CSS_SELECTOR, value="div[id='skill-tab-1'] div[class='skill-description'] div[class='effect-description skill-upgrade-tab-1 current-tab']")
     imgHTML = skill_effect.get_attribute("innerHTML")
@@ -95,7 +94,10 @@ def skill(driver:webdriver):
         if time == "-":
             duration = None
         else:
-            duration = int(time)
+            if time.isdigit():
+                duration = int(time)
+            else:
+                duration = None
 
         skill_effect = driver.find_element(by=By.CSS_SELECTOR, value="div[id='skill-tab-2'] div[class='skill-description'] div[class='effect-description skill-upgrade-tab-1 current-tab']")
         imgHTML = skill_effect.get_attribute("innerHTML")
@@ -123,7 +125,10 @@ def skill(driver:webdriver):
         if time == "-":
             duration = None
         else:
-            duration = int(time)
+            if time.isdigit():
+                duration = int(time)
+            else:
+                duration = None
 
         skill_effect = driver.find_element(by=By.CSS_SELECTOR,
                                            value="div[id='skill-tab-3'] div[class='skill-description'] div[class='effect-description skill-upgrade-tab-1 current-tab']")
@@ -191,6 +196,7 @@ def kaltsit(url:str, headless:bool=True):
     character["stats"] = { "base": base_stats, "elite_one": e1_stats, "elite_two": e2_stats}
     character["skills"] = skill(driver)
 
+    print(f"{character['name']} found")
     return character
 
 

@@ -1,5 +1,6 @@
 #this module handles the search of the
 #TODO:Connection with Database (future feature)
+import datetime
 import time
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -11,6 +12,8 @@ import cloudscraper
 from PIL import Image
 import io
 import webbrowser
+import cmd2.originum as ori
+import Kaltsit.arknomicon as ark
 
 location = {
     "HP": {By.XPATH: "//div[@id='stat-hp']", By.CSS_SELECTOR:"#stat-hp",},
@@ -24,7 +27,7 @@ location = {
 class Operator:
     def __init__(self, character_dictionary:dict):
         self.codename = character_dictionary["name"]
-        self.elite_level = character_dictionary["elite"]
+        self.S = character_dictionary["elite"]
         self.level = character_dictionary["level"]
         self.HP = character_dictionary["HP"]
         self.ATK = character_dictionary["ATK"]
@@ -34,6 +37,15 @@ class Operator:
         self.BLOCK = character_dictionary["BLOCK"]
         self.url = character_dictionary["url"]
         self.img = character_dictionary["img"]
+
+class Kaltsit_Operator:
+    def __init__(self, character_dictionary: dict):
+        self.name = character_dictionary["name"]
+        self.img = character_dictionary["img"]
+        self.type = character_dictionary["type"]
+        self.archetype = character_dictionary["archetype"]
+        self.status = character_dictionary["stats"]
+        self.skills = character_dictionary["skills"]
 
 def liskcraw(operator:str, elite:int=0, max_level:bool=True, default_level:int=1, link="https://www.gamepress.gg/arknights/operator/", head=True):
     character_status = {"name": operator.capitalize()}
@@ -108,7 +120,7 @@ def liskcraw(operator:str, elite:int=0, max_level:bool=True, default_level:int=1
 
     # Last thing to do is append the url to the character dictionary
     character_status["url"] = url
-    return Operator(character_status)
+    return character_status
 
 class Operator_window:
     def __init__(self, operator:Operator):
@@ -152,3 +164,24 @@ class Operator_window:
             elif event == "-see-":
                 webbrowser.open(self.operator.url)
         self.window.close()
+
+def search_operator(operator_name:str):
+    today_moment = datetime.datetime.today()
+    today_str = today_moment.strftime("%Y-%m-%dT%H:%M")
+    config = ori.Config()
+    amiya = config["amiya"]
+
+    if eval(amiya["database"]):
+        operator_data = ark.get_operator(operator_name)
+        print(operator_data)
+        if operator_data is None:
+            operator_data = liskcraw(operator_name)
+            ark.insert_operator(operator_data)
+    else:
+        operator_data = liskcraw(operator_name)
+
+    amiya["last_operator_seen"] = operator_data["name"]
+    amiya["last_time_run"] = today_str
+    with open(ori.CONFIG_FILE, "w") as ConfigFile:
+        config.write(ConfigFile)
+    return operator_data

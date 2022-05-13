@@ -1,8 +1,10 @@
+import datetime
 from pprint import pprint
 
 import pymongo as mg
 from pymongo.server_api import ServerApi
-import archive
+import Kaltsit.archive as archive
+import cmd2.originum as ori
 
 def insert(operator:archive.operator, collection:mg.collection.Collection):
     names = []
@@ -48,20 +50,42 @@ def update_skill(current_operator:archive.operator, collection:mg.collection.Col
         return
 
 
+if __name__ == "__main__":
+    client = mg.MongoClient(
+        "mongodb+srv://joao:sdl170502@kaltsit.gyy0s.mongodb.net/kaltsit?retryWrites=true&w=majority",
+        server_api=ServerApi('1'))
+    database = client["kaltsit"]
+    collection = database["operators"]
+    operators = archive.search(headless=True, max_searches=10)
+    for operator in operators:
+        collection.update_one({"name":f"{operator.name}"}, {"$set": {"url": operator.url}})
 
+    for operator in operators:
+        print(operator.name)
+        pprint(operator.skills)
+        update_skill(operator, collection)
 
-client = mg.MongoClient("mongodb+srv://joao:sdl170502@kaltsit.gyy0s.mongodb.net/kaltsit?retryWrites=true&w=majority", server_api=ServerApi('1'))
-database = client["kaltsit"]
-collection = database["operators"]
-operators = archive.search(headless=True, max_searches=10)
-for operator in operators:
-    insert(operator, collection)
+def get_operator(operator_name:str):
+    today_moment = datetime.datetime.today()
+    today_str = today_moment.strftime("%Y-%m-%dT%H:%M")
+    config = ori.Config()
+    kaltsit = config["kaltsit"]
 
-for operator in operators:
-    print(operator.name)
-    pprint(operator.skills)
-    update_skill(operator, collection)
+    client = mg.MongoClient(
+        kaltsit["database_link"],
+        server_api=ServerApi('1'))
+    database = client["kaltsit"]
+    collection = database["operators"]
 
+    query = {"name":operator_name}
+    result = collection.find(query)
+    operator_data = None
+    for oper in result:
+        operator_data = dict(oper)
 
+    kaltsit["last_time_run"] = today_str
+    with open(ori.CONFIG_FILE, "w") as ConfigFile:
+        config.write(ConfigFile)
+    return operator_data
 
 

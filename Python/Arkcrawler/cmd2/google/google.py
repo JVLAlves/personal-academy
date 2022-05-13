@@ -8,7 +8,7 @@ from datetime import *
 import os
 from pytz import *
 
-def CreateEvent(title:str, duration:str):
+def CreateEvent(title:str, duration:str, description:str=""):
     scopes = ["https://www.googleapis.com/auth/calendar.events", "https://www.googleapis.com/auth/calendar"]
     flow = InstalledAppFlow.from_client_secrets_file(
         "google/auth/client_secret_file.json", scopes=scopes)
@@ -45,7 +45,7 @@ def CreateEvent(title:str, duration:str):
     event = {
         'summary': f'{title}',
         'location': '',
-        'description': '',
+        'description': f'{description}',
         'start': {
             'dateTime': start_date,
             'timeZone': 'America/Sao_Paulo',

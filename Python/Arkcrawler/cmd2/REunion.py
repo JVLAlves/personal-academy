@@ -85,7 +85,6 @@ class Arknews:
             ## 02 DURATION
             if not self.jumpable_duration and self.TWO_INDEX < index:
                 if re.match(DURATION, paragraphs):
-                    self.news_abstract.append(paragraphs)
                     self.jumpable_duration = True
 
             ## 02 OPERATORS

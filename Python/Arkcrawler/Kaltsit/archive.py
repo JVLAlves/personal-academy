@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 from bs4 import BeautifulSoup
+import arknomicon as ark
 """
 ICON
 NAME
@@ -22,9 +23,11 @@ class operator_cell:
 
 class operator:
     def __init__(self, character:dict):
+        print(character["url"])
         self.dict = character
         self.name = character["name"]
         self.img = character["img"]
+        self.url = character["url"]
         self.type = character["type"]
         self.archetype = character["archetype"]
         self.status = character["stats"]
@@ -154,6 +157,7 @@ def kaltsit(url:str, headless:bool=True):
     time.sleep(2)
     name = driver.find_element(by=By.CSS_SELECTOR, value="div[id='page-title'] h1").text
     character["name"] = name
+    character["url"] = url
     img = driver.find_element(by=By.XPATH, value="//div[@id='image-tab-1']//a//img").get_attribute("src")
     character["img"] = img
     type = driver.find_element(by=By.CSS_SELECTOR, value="div[class='profession-cell-inner'] div[class='profession-title']").text
@@ -249,7 +253,8 @@ def search(url:str="https://gamepress.gg/arknights/tools/interactive-operator-li
         if count > max_searches:
             break
         oper = kaltsit(op.url)
-        operators.append(operator(oper))
+        print(oper)
+        operators.append(oper)
         count+=1
     return operators
 
@@ -258,4 +263,6 @@ def search(url:str="https://gamepress.gg/arknights/tools/interactive-operator-li
     #click on status button to start searching
 
 if __name__ == "__main__":
-    search()
+    operators = search(max_searches=100)
+    for operator in operators:
+        ark.update_operator(operator)

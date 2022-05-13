@@ -15,6 +15,7 @@ import originum as ori
 import multiprocessing as mp
 import REunion as reun
 import logging
+from automation import automates
 
 
 
@@ -58,7 +59,7 @@ class Main:
             [sg.Text("News Type:"), sg.Push()],
             [sg.Push(), sg.Radio("ALL", "news_type", key="all"), sg.Radio("Contest", "news_type", key="contest"),
              sg.Radio("Event", "news_type", key="event"), sg.Push()],
-            [sg.Push(), sg.Button("Search", key="search"), sg.Push()],
+            [sg.Push(), sg.Button("Search", key="Search"), sg.Button("Automate", key="-AUTO-"), sg.Push()],
             [sg.VPush()]
         ]
 
@@ -73,7 +74,7 @@ class Main:
 
             if event == sg.WIN_CLOSED:
                 break
-            elif event == 'search':
+            elif event == 'Search':
                 #self.chargin.start()
                 news_number = ["latest", "other", "nines"]
 
@@ -102,35 +103,82 @@ class Main:
                         logging.error("category not marked")
                         continue
 
+                if self.news_indication in ["latest", "nines"]:
+                    logging.info("Searching for news")
+                    self.news_to_focus = ori.Search(self.news_indication, self.category)
+                    logging.info(f"this is the found news '{self.news_to_focus}'.")
+                elif self.news_indication == "other":
+                    logging.info(values['specific_news'])
+                    self.news_to_focus = f"/news/{values['specific_news']}"
+                    logging.info(f"this is the specific new '{self.news_to_focus}'.")
 
-            if self.news_indication in ["latest", "nines"]:
-                logging.info("Searching for news")
-                self.news_to_focus = ori.Search(self.news_indication, self.category)
-                logging.info(f"this is the found news '{self.news_to_focus}'.")
-            elif self.news_indication == "other":
-                logging.info(values['specific_news'])
-                self.news_to_focus = f"/news/{values['specific_news']}"
-                logging.info(f"this is the specific new '{self.news_to_focus}'.")
+                if self.news_to_focus is None:
+                    sg.popup_error("Error founding news", title="Error", font="Arial 16 bold")
+                    logging.error("news not found")
+                    continue
 
-            if self.news_to_focus is None:
-                sg.popup_error("Error founding news", title="Error", font="Arial 16 bold")
-                logging.error("news not found")
-                continue
+                if isinstance(self.news_to_focus, list):
+                    for news in self.news_to_focus:
+                        logging.info(f"Focusing on News '{news}'")
+                        try:
+                            news_content, url = ori.Focus(news)
+                        except:
+                            sg.popup_error(f"{news} not found", title="Error", font="Arial 16 bold")
+                            logging.error(f"{news} not exists")
+                            exit()
+                        else:
+                            if len(news_content) != 0:
+                                # self.chargin.terminate()
+                                # self.chargin_window.close()
+                                return news_content, url
 
-            if isinstance(self.news_to_focus, list):
-                for news in self.news_to_focus:
-                    logging.info(f"Focusing on News '{news}'")
-                    try:
-                        news_content, url = ori.Focus(news)
-                    except:
-                        sg.popup_error(f"{news} not found", title="Error", font="Arial 16 bold")
-                        logging.error(f"{news} not exists")
-                        exit()
-                    else:
-                        if len(news_content) != 0:
-                            # self.chargin.terminate()
-                            # self.chargin_window.close()
-                            return news_content, url
+            elif event == "-AUTO-":
+                today_moment = datetime.datetime.today()
+                today_str = today_moment.strftime("%Y-%m-%dT%H:%M")
+                ori.Config_init()
+                config = ori.Config()
+                liskarm = config["liskarm"]
+                liskarm["last_time_run"] = today_str
+
+                # self.chargin.start()
+                news_number = ["latest", "other", "nines"]
+
+                for value in values:
+                    if values[value] != '':
+                        if values[value] and value in news_number:
+                            self.news_indication = value
+
+                if self.news_indication is None:
+                    sg.popup_error("No indication marked.\nPlease, choose a new indication.", title="Error",
+                                   font="Arial 16 bold")
+                    logging.error("indication not marked")
+                    continue
+
+                news_type = ['all', 'contest', 'event']
+                for value in values:
+                    if values[value] != '':
+                        if values[value] and value in news_type:
+                            self.category = value
+
+
+                if self.category is None:
+                        sg.popup_error("No category marked.\nPlease, choose a new category.", title="Error",
+                                       font="Arial 16 bold")
+                        logging.error("category not marked")
+                        continue
+
+                if not eval(liskarm["automation"]):
+                    liskarm["automation"] = "True"
+                else:
+                    liskarm["automation"] = "False"
+
+                liskarm["news_type"] = self.news_indication
+                liskarm["news_category"] = self.category
+
+                with open(ori.CONFIG_FILE, "w") as ConfigFile:
+                    config.write(ConfigFile)
+                automates()
+                exit()
 
             else:
                 try:

@@ -1,7 +1,10 @@
-import cmd2.REunion as reun
+from configparser import ConfigParser
+File = "../config.ini"
+config = ConfigParser()
+config.read(File)
 
-with open("arknew_near_light", 'r') as f:
-    lines = f.readlines()
-    print(lines)
-    news = reun.Arknews(lines, "https://www.arknights.global/news/156")
-    news.short()
+liskarm = config["liskarm"]
+print(list(liskarm.values()))
+for lisk in liskarm:
+    print(liskarm[lisk])
+

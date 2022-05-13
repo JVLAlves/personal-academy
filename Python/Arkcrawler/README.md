@@ -6,10 +6,6 @@
 
 
 ## TODO LIST
-
-* Cortar incrementos ao nome dos Operadores, como, (Limited) e (Rate 50% up)
-* Error handling popups
-* Remover prints ou substituir por logs
 * transformar codigo fonte em software ou app de Desktop 
 * Separar melhor os paragrafos (tentar objetificar as linhas)
 * Anexar as imagens as noticias
@@ -17,9 +13,14 @@
 * * Rever tudo e comentar
 
 
-## Possible Features
-### Automation
-#### Automatizar envio das noticias de forma que se houver algum evento novo adiante ele automaticamente acrescentará a minha agenda.
-### Database
-#### Criar banco de dados com informações a cerca de cada Operador, bem como Combos, combinações, estratégias e Formações. 
-#### --> melhor que seja outro programa, um projeto a par
+# KAL'TSIT
+
+## Archive
+#### Interação programador --> MongoDB
+* Tornar mais simple para inserir dados e altera-los
+* acessível a outras conexões MongoDB
+
+## Clipboard
+#### Interação programa --> Banco de dados
+* Isolar composição para Arknights
+* Aderir outros tipos de dados (Informações relevantes, Combos de operadores, Sugestões de Squad)

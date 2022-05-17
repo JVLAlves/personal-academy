@@ -9,7 +9,7 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 import PySimpleGUI as sg
 import cloudscraper
-from PIL import Image
+from PIL import Image, ImageEnhance
 import io
 import webbrowser
 import cmd2.originum as ori
@@ -27,7 +27,7 @@ location = {
 class Operator:
     def __init__(self, character_dictionary:dict):
         self.codename = character_dictionary["name"]
-        self.S = character_dictionary["elite"]
+        self.Stats = character_dictionary["elite"]
         self.level = character_dictionary["level"]
         self.HP = character_dictionary["HP"]
         self.ATK = character_dictionary["ATK"]
@@ -46,6 +46,21 @@ class Kaltsit_Operator:
         self.archetype = character_dictionary["archetype"]
         self.status = character_dictionary["stats"]
         self.skills = character_dictionary["skills"]
+
+def Getpic(url:str, basewidth:int=600):
+    jpg_data = (
+        cloudscraper.create_scraper(
+            browser={"browser": "firefox", "platform": "windows", "mobile": False}
+        ).get(url).content)
+
+    pil_image = Image.open(io.BytesIO(jpg_data))
+    wpercent = (basewidth / float(pil_image.size[0]))
+    hsize = int(float(pil_image.size[1]) * float(wpercent))
+    pil_image = pil_image.resize((basewidth, hsize), Image.ANTIALIAS)
+    png_bio = io.BytesIO()
+    pil_image.save(png_bio, format="PNG")
+    png_data = png_bio.getvalue()
+    return png_data
 
 def liskcraw(operator:str, elite:int=0, max_level:bool=True, default_level:int=1, link="https://www.gamepress.gg/arknights/operator/", head=True):
     character_status = {"name": operator.capitalize()}
@@ -125,26 +140,14 @@ def liskcraw(operator:str, elite:int=0, max_level:bool=True, default_level:int=1
 class Operator_window:
     def __init__(self, operator:Operator):
         self.operator = operator
-        jpg_data = (
-            cloudscraper.create_scraper(
-                browser={"browser": "firefox", "platform": "windows", "mobile": False}
-            ).get(operator.img).content)
-
-        basewidth = 600
-        pil_image = Image.open(io.BytesIO(jpg_data))
-        wpercent = (basewidth/float(pil_image.size[0]))
-        hsize = int(float(pil_image.size[1])*float(wpercent))
-        pil_image = pil_image.resize((basewidth, hsize), Image.ANTIALIAS)
-        png_bio = io.BytesIO()
-        pil_image.save(png_bio, format="PNG")
-        png_data = png_bio.getvalue()
+        png_data = Getpic(operator.img)
 
         layout=[
             [sg.VPush(), sg.Push(), sg.Text(operator.codename.upper(), font="Arial 16 bold"), sg.Push()],
             [sg.VPush(), sg.Push(), sg.Image(data=png_data, ), sg.Push(), sg.VPush()],
             [sg.VPush(), sg.Text("OPERATOR STATUS", font="Arial 16 bold")],
             [sg.Text(f"Lvl. {operator.level}", font="Arial 14")],
-            [sg.Text(f"Elite {operator.elite_level}", font="Arial 14")],
+            [sg.Text(f"Elite {operator.Stats}", font="Arial 14")],
             [sg.Text(f"HP: {operator.HP}", font="Arial 14")],
             [sg.Text(f"ATK: {operator.ATK}", font="Arial 14")],
             [sg.Text(f"DEF: {operator.DEF}", font="Arial 14")],
@@ -153,7 +156,7 @@ class Operator_window:
             [sg.Text(f"Block: {operator.BLOCK} {'enemy' if operator.BLOCK == 1 else 'enemies'}", font="Arial 14")],
             [sg.VPush(), sg.Button("see on page", key ="-see-"), sg.VPush()]
         ]
-        self.window = sg.Window(f"Operator: {operator.codename}", icon="Amiya/Operator.png").layout(layout).finalize()
+        self.window = sg.Window(f"Operator: {operator.codename}", icon="images/Operator.png").layout(layout).finalize()
         self.window.bind("<Key-Escape>", "esc")
 
     def init(self):

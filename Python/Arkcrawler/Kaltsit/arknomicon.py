@@ -32,9 +32,9 @@ def insert_operator(new_operator: dict, collection: mg.collection.Collection=kal
 def update_operator(current_operator: dict, collection: mg.collection.Collection=kaltsitCollection):
     exists = False
     differences = []
-    model_keys = dict(collection.find_one({"name": "Kal'tsit"})).keys()
+    model_keys = dict(collection.find_one({"name": "Honeyberry"})).keys()
+    print(model_keys)
     model = list(model_keys)
-    model.remove("_id")
     if collection.find_one({"name": {"$eq": current_operator["name"]}}) != None:
         pass
     else:
@@ -44,9 +44,9 @@ def update_operator(current_operator: dict, collection: mg.collection.Collection
     if current_operator.keys() != model:
         print(f"MODEL: {model}")
         for keys in current_operator.keys():
-            print(fr"KEY: {keys}, MODEL: {model}")
+            print(fr"KEY: {keys if keys != '' else 'Nothing'}, MODEL: {model}")
             if keys not in model:
-                print(f"(DIFF) {keys.upper()}")
+                print(f"(DIFF) {keys}")
                 print(f"if you want to add a new field called {keys}, consider to do it separately")
                 return
     else:
@@ -55,8 +55,8 @@ def update_operator(current_operator: dict, collection: mg.collection.Collection
     if current_operator != selected_operator:
         for key, val in current_operator.items():
             if selected_operator[key] != val:
-                if key == "name":
-                    raise Exception("You cannot update the name of an Operator by the Code")
+                if key == "name" or key == "_id":
+                    raise Exception("You cannot update the name or id of an Operator by the Code")
                 print(f"({key}) OLD: {selected_operator[key]}\n({key}) NEW: {val}")
                 differences.append((key, val))
 
@@ -116,7 +116,6 @@ def delete_operator(operator: dict, collection: mg.collection.Collection = kalts
         print("operator deleted")
     else:
         raise Exception(f"Impossible to delete an inexistent Operator named {operator['name']}")
-
 
 """
 ROSMOTIS

@@ -150,7 +150,7 @@ class Main:
 
                 if self.news_indication is None:
                     sg.popup_error("No indication marked.\nPlease, choose a new indication.", title="Error",
-                                   font="Arial 16 bold")
+                                  font="Arial 16 bold")
                     logging.error("indication not marked")
                     continue
 

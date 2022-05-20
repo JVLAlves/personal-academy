@@ -40,9 +40,11 @@ class create_field:
 class main:
     def __init__(self):
         layout = [
-            [sg.Push(), sg.Text("Kal'tsit Clipboard HUB", font="Arial 16 bold", text_color="#000000"), sg.Push()],
-            [sg.Button("add field", key="-FIELD-"), sg.Button("add operator", key="-OPER-"), sg.Button("see all", key="-ALL-")],
-            [sg.Push(), sg.Cancel("Leave"), sg.Push()]
+            [sg.Push(), sg.Image(source=kaltsit_application_icon), sg.Push()],
+            [sg.Push(), sg.Text("Kal'tsit Clipboard HUB", font="Times 24 bold underline", text_color="#000000"), sg.Push()],
+            [sg.VPush()],
+            [sg.Push(), sg.Button("ADD FIELD", key="-FIELD-", size=(10,1)), sg.Button("ADD OPER-", key="-OPER-", size=(10,1)), sg.Button("SEE ALL", key="-ALL-", size=(10,1)), sg.Push()],
+            [sg.Push(), sg.Cancel("LEAVE",button_color="#c71f37", size=(10,1)), sg.Push()]
         ]
 
         self.window = sg.Window("KC HUB", icon=kaltsit_application_icon).layout(layout)
@@ -50,7 +52,7 @@ class main:
     def open(self):
         while True:
             event, _ = self.window.read()
-            if event == sg.WIN_CLOSED or event == "Leave":
+            if event == sg.WIN_CLOSED or event == "LEAVE":
                 break
             elif event == "-FIELD-":
                 field = create_field()
@@ -58,12 +60,7 @@ class main:
             elif event == "-OPER-":
                 pass
             elif event == "-ALL-":
-                operators = ark.get_all_operator()
-                operators_data = []
-                for operator in operators:
-                    operators_data.append([operator["name"], operator["type"], operator["archetype"], len(operator["skills"]) if operator["skills"] is not None else 0, len(operator["outfits"]) if operator["outfits"] is not None else 0, operator["url"], operator])
-                operator_headings = ["NAME", "TYPE", "ARCHETYPE", "SKILL COUNT", "OUTFITS COUNT", "URL"]
-                tbl.create(operators_data, operator_headings)
+                tbl.create()
         exit()
 
 

@@ -16,8 +16,9 @@ def add_field(field: str, collection: mg.collection.Collection=kaltsitCollection
     if collection.find_one({f"{field.lower()}": {"$exists": True}}) == None:
         collection.update_many({}, {"$set": {f"{field.lower()}": default_value}})
         print("field added")
-    else:
-        print("this field already exists")
+    elif collection.find_one({f"{field.lower()}": {"$exists": True}}) != None and default_value !=None:
+        collection.update_many({}, {"$set": {f"{field.lower()}": default_value}})
+        print("subfields or default values added")
 
 
 def insert_operator(new_operator: dict, collection: mg.collection.Collection=kaltsitCollection):
@@ -100,9 +101,9 @@ def get_operator(operator_name: str, collection: mg.collection.Collection = kalt
         return None
 
 
-def get_all_operator(collection: mg.collection.Collection = kaltsitCollection):
+def get_all_operator(collection: mg.collection.Collection = kaltsitCollection, operator:str=""):
     all_operator = []
-    operators = collection.find()
+    operators = collection.find({"name":{"$regex":f"^{operator}"}})
     for operator in operators:
         all_operator.append(dict(operator))
     if len(all_operator) == 0:

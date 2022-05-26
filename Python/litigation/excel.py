@@ -1,12 +1,19 @@
-import openpyxl as xl
+import pandas as pd
 
-class excel:
-    def __init__(self, filename:str):
-        try:
-            xl.load_workbook(filename)
-        except:
-            raise Exception("This file does not exists")
-        else:
-            pass
-        self.workbook = xl.load_workbook(filename)
 
+def getAllProcesses(file:str):
+    try:
+        open(file, "r")
+    except:
+        raise Exception("File does not exists")
+    else:
+        pass
+    excel_DF = pd.read_excel(file)
+    AllProcesses = []
+    for row in excel_DF.iterrows():
+        index, df = row
+        AllProcesses.append(dict(df))
+    return AllProcesses
+
+if __name__ == "__main__":
+    print(getAllProcesses("litigation_template.xlsx"))

@@ -1,7 +1,24 @@
+import os.path
 import arknomicon as ark
 import PySimpleGUI as sg
 import table as tbl
-from images.imgs import *
+from PIL import Image
+import io
+from Amiya import myScreen
+def image(filename:str):
+    baseheight = myScreen().height
+    if not os.path.exists(filename):
+        raise FileNotFoundError
+
+    pil_image = Image.open(filename)
+    print(f"baseheight: {baseheight}")
+    hpercent = (baseheight / float(pil_image.size[0]))
+    wsize = int(float(pil_image.size[1]) * float(hpercent))
+    pil_image = pil_image.resize((int(wsize), int(baseheight)), Image.Resampling.LANCZOS)
+    png_bio = io.BytesIO()
+    pil_image.save(png_bio, format="PNG")
+    png_data = png_bio.getvalue()
+    return png_data
 
 class create_field:
 
@@ -15,8 +32,7 @@ class create_field:
 
         ]
 
-        self.window = sg.Window("create field", icon=kaltsit_application_icon).layout(layout)
-
+        self.window = sg.Window("create field", icon=image("Kaltsitssmall.png")).layout(layout)
     def open(self):
         while True:
             event, values = self.window.read()
@@ -40,14 +56,14 @@ class create_field:
 class main:
     def __init__(self):
         layout = [
-            [sg.Push(), sg.Image(source=kaltsit_application_icon), sg.Push()],
+            [sg.Push(), sg.Image(source="Kaltsitssmall.png"), sg.Push()],
             [sg.Push(), sg.Text("Kal'tsit Clipboard HUB", font="Times 24 bold underline", text_color="#000000"), sg.Push()],
             [sg.VPush()],
             [sg.Push(), sg.Button("ADD FIELD", key="-FIELD-", size=(10,1)), sg.Button("ADD OPER-", key="-OPER-", size=(10,1)), sg.Button("SEE ALL", key="-ALL-", size=(10,1)), sg.Push()],
             [sg.Push(), sg.Cancel("LEAVE",button_color="#c71f37", size=(10,1)), sg.Push()]
         ]
 
-        self.window = sg.Window("KC HUB", icon=kaltsit_application_icon).layout(layout)
+        self.window = sg.Window("KC HUB", icon="Kaltsitssmall.png").layout(layout)
 
     def open(self):
         while True:

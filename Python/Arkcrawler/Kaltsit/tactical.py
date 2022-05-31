@@ -17,7 +17,7 @@ def get_from_type(type:str, collection:mg.collection.Collection=ark.kaltsitColle
 
 def get_from_archetype(archetype:str, collection:mg.collection.Collection=ark.kaltsitCollection):
     all_operator = []
-    operators = collection.find({"archetype": {"$regex":f"{archetype.title()}"}})
+    operators = collection.find({"archetype": {"$regex":f"{archetype}"}})
     for operator in operators:
         all_operator.append(dict(operator))
     if len(all_operator) == 0:
@@ -61,22 +61,27 @@ def random_formation():
                 while operator["name"].find("Reserve Operator") != -1:
                     operator = random.choice(operators_of_type)
             SQUAD["team"].append(operator["name"])
+
+    for index, operator in enumerate(SQUAD["team"]):
+        mongo_operator = ark.get_operator(operator)
+        SQUAD['team'][index] = mongo_operator
     return SQUAD
 
 
 
 def balanced_formation():
+    JUMP = False
     SQUAD = {
         "build": {
             "AoE / Multi-target Medic": 1,
             "ST / Medic": 1,
-            "defender": 1,
+            "Normal / Protector": 1,
             "Skill-DP / Pioneer": 2,
-            "Aoe / Artilleryman": 1,
+            "AoE / Artilleryman": 1,
             "Anti-Air / Marksman": 1,
             "AoE / Splash Caster": 1,
             "ST / Core Caster": 1,
-            "Duelist / Dreadnpught": 1,
+            "Duelist / Dreadnought": 1,
             "Arts Fighter": 1,
             "any": 1
         },
@@ -97,12 +102,13 @@ def balanced_formation():
             if operator["name"].find("Reserve Operator") != -1:
                 while operator["name"].find("Reserve Operator") != -1:
                     operator = random.choice(operators_of_type)
+            elif operator["name"] in SQUAD["team"]:
+                while operator["name"] in SQUAD["team"]:
+                    operator = random.choice(operators_of_type)
             SQUAD["team"].append(operator["name"])
             continue
 
-        print()
         operators_of_archetype = get_from_archetype(arche)
-
         operator_of_choice = random.choices(operators_of_archetype, k=quant)
         if not JUMP:
             SQUAD["build"][arche] -= len(operator_of_choice)
@@ -112,13 +118,19 @@ def balanced_formation():
             if operator["name"].find("Reserve Operator") != -1:
                 while operator["name"].find("Reserve Operator") != -1:
                     operator = random.choice(operators_of_archetype)
+            elif operator["name"] in SQUAD["team"]:
+                while operator["name"] in SQUAD["team"]:
+                    operator = random.choice(operators_of_archetype)
             SQUAD["team"].append(operator["name"])
+
+    for index, operator in enumerate(SQUAD["team"]):
+        mongo_operator = ark.get_operator(operator)
+        SQUAD['team'][index] = mongo_operator
     return SQUAD
 
 
 
 SQUAD = balanced_formation()
-pprint(SQUAD)
 
 
 

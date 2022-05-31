@@ -1,13 +1,15 @@
 import os
 import shutil
 import paths as pts
+import time
 import ctf_hq as hq
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 DOWNLOADS_DIR = pts.HOME + '/' + "Downloads"
 def ctf():
     TAGS = list(pts.tags_and_folders.keys())
-
+    for t in TAGS:
+        print(t)
     files = os.listdir(DOWNLOADS_DIR)
     for file in files:
         print(file)
@@ -21,7 +23,9 @@ def ctf():
             continue
         else:
             if not hq.tagExists(tag):
+                print("Something went wrong")
                 hq.verify_tag_window(tag)
+                exit()
 
         file_newname = split_file[1]
         if tag in TAGS:
@@ -29,3 +33,5 @@ def ctf():
             os.rename(pts.tags_and_folders[f"{tag}"] + f"{file}", pts.tags_and_folders[f"{tag}"] + f"{file_newname}")
             print(f"{file_newname} moved to {tag} folder")
 
+if __name__ == "__main__":
+    ctf()

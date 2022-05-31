@@ -47,6 +47,8 @@ class new_tag_window:
                 break
 
         self.window.close()
+        time.sleep(5)
+        ctf()
 
 class verify_tag_window:
     def __init__(self, tag: str):
@@ -95,7 +97,7 @@ class tag_list_window:
             [sg.Push(), sg.Text("All TAGS", font="Arial 16 bold", text_color="#000000"), sg.Push()]
         ]
         for elem in self.tag_list:
-            semicol = [sg.Push(), sg.Button(f"{elem.upper()}"), sg.Push()]
+            semicol = [sg.Push(), sg.Button(f"{elem.upper()}", font="Arial 14", size=(5,1)), sg.Push()]
             column.append(semicol)
 
         self.window = sg.Window("ALL TAGS", font="Arial 8").layout(column)
@@ -115,32 +117,36 @@ class CTF_menu:
     config = Config()
     def __init__(self):
         layout=[
-            [sg.Push(), sg.Text("CTF", font="Arial 20 bold", text_color="#000000"), sg.Push()],
-            [sg.Push(), sg.Text("Capture The Flag", font="Arial 10 italic", text_color="#000000"), sg.Push()],
+            [sg.Push(), sg.Text("CTF", font="Arial 30 bold", text_color="#000000"), sg.Push()],
+            [sg.Push(), sg.Text("Capture The Flag", font="Arial 20 italic", text_color="#000000"), sg.Push()],
             [sg.VPush()],
             [sg.VPush()],
-            [sg.VPush(), sg.Push(), sg.Button("Start Filter", key="-START-"), sg.Push()],
-            [sg.VPush(), sg.Push(), sg.Button("Create New Tag", key="-NEW-"), sg.Push()],
-            [sg.VPush(), sg.Push(), sg.Button("All Tags", key="-ALL-"), sg.Push()],
+            [sg.VPush(), sg.Push(), sg.Button("Start Filter", key="-START-", font="Arial 14", size=(15,1)), sg.Push()],
+            [sg.VPush(), sg.Push(), sg.Button("Create New Tag", key="-NEW-", font="Arial 14", size=(15,1)), sg.Push()],
+            [sg.VPush(), sg.Push(), sg.Button("All Tags", key="-ALL-", font="Arial 14", size=(15,1),), sg.Push()],
             [sg.VPush()],
             [sg.VPush()],
-            [sg.Push(), sg.Text("Auto-Filter:", font="Arial 12", text_color="#000000"), sg.Push()],
-            [sg.Push(), sg.Radio("on", "STATUS", key="online", default=True), sg.Push()],
-            [sg.Push(), sg.Radio("off", "STATUS", key="offline"), sg.Push()],
+            [sg.Push(), sg.Text("Auto-Filter:", font="Arial 14", text_color="#000000"), sg.Push()],
+            [sg.Push(), sg.Radio("on", "STATUS", key="online", default=True, font="Arial 14"), sg.Push()],
+            [sg.Push(), sg.Radio("off", "STATUS", key="offline", font="Arial 14"), sg.Push()],
+            [sg.VPush()],
+            [sg.Push(), sg.Cancel("LEAVE", key="-EXIT-", font="Arial 12"), sg.Push()]
         ]
         self.window = sg.Window("CTF menu").layout(layout).finalize()
 
     def init(self):
         while True:
             event, value = self.window.read()
-            print(value)
-            if event == sg.WIN_CLOSED:
-                if value["online"]:
-                    self.config.set("autofilter", "status", "online")
-                elif value["offline"]:
-                    self.config.set("autofilter", "status", "offline")
-                with open(FILE) as configFile:
-                    self.config.write(configFile)
+            if event == sg.WIN_CLOSED or event == "-EXIT-":
+                if value is not None:
+                    if value["online"]:
+                        self.config.set("autofilter", "status", "online")
+                        with open(FILE, "w") as configFile:
+                            self.config.write(configFile)
+                    elif value["offline"]:
+                        self.config.set("autofilter", "status", "offline")
+                        with open(FILE, "w") as configFile:
+                            self.config.write(configFile)
                 break
             elif event == "-START-":
                 ctf()
@@ -155,11 +161,3 @@ class CTF_menu:
 if __name__ == "__main__":
     window = CTF_menu()
     window.init()
-
-
-
-
-
-
-
-

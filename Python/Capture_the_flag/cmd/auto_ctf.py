@@ -8,6 +8,7 @@ AUTO_FILTER = True
 
 class ctfHandler(FileSystemEventHandler):
     def on_modified(self, event):
+        print("Triggered")
         time.sleep(10)
         ctf.ctf()
 
@@ -19,5 +20,6 @@ try:
     while AUTO_FILTER:
         time.sleep(10)
 except KeyboardInterrupt:
+    print("Application Stopped")
     observer.stop()
 observer.join()

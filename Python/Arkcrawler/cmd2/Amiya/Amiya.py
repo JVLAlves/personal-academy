@@ -14,6 +14,13 @@ import io
 import webbrowser
 import cmd2.originum as ori
 import Kaltsit.arknomicon as ark
+import screeninfo as screen
+
+class myScreen:
+    def __init__(self):
+        self.screen = screen.get_monitors()[0]
+        self.width = self.screen.width
+        self.height = self.screen.height
 
 location = {
     "HP": {By.XPATH: "//div[@id='stat-hp']", By.CSS_SELECTOR:"#stat-hp",},
@@ -47,16 +54,18 @@ class Kaltsit_Operator:
         self.status = character_dictionary["stats"]
         self.skills = character_dictionary["skills"]
 
-def Getpic(url:str, basewidth:int=600):
+def Getpic(url:str, BASEheight:int=myScreen().height, factor:float=2):
     jpg_data = (
         cloudscraper.create_scraper(
             browser={"browser": "firefox", "platform": "windows", "mobile": False}
         ).get(url).content)
 
+    baseheight = BASEheight / factor
     pil_image = Image.open(io.BytesIO(jpg_data))
-    wpercent = (basewidth / float(pil_image.size[0]))
-    hsize = int(float(pil_image.size[1]) * float(wpercent))
-    pil_image = pil_image.resize((basewidth, hsize), Image.ANTIALIAS)
+    print(f"baseheight: {baseheight}")
+    hpercent = (baseheight / float(pil_image.size[0]))
+    wsize = int(float(pil_image.size[1]) * float(hpercent))
+    pil_image = pil_image.resize((int(wsize), int(baseheight)), Image.ANTIALIAS)
     png_bio = io.BytesIO()
     pil_image.save(png_bio, format="PNG")
     png_data = png_bio.getvalue()

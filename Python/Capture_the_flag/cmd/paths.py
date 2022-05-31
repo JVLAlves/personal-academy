@@ -2,7 +2,7 @@ import os.path
 from pathlib import Path
 from configparser import ConfigParser
 
-FILE = 'tags.ini'
+FILE = '.tags.ini'
 
 
 def Config():
@@ -41,7 +41,3 @@ if __name__ != "__main__":
     for path in tags_and_folders.values():
         if not os.path.exists(path):
             os.mkdir(path)
-
-
-
-

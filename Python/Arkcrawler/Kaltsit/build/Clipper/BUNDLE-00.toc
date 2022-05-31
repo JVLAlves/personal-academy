@@ -1,0 +1,3 @@
+([('Clipper',
+   '/Users/joao/projects/repo/personal-academy/Python/Arkcrawler/Kaltsit/dist/Clipper',
+   'EXECUTABLE')],)

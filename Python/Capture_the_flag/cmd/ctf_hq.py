@@ -1,4 +1,7 @@
-from paths import tags_and_folders
+import os
+import pathlib
+
+import paths
 import PySimpleGUI as sg
 from paths import *
 from ctf import *
@@ -11,6 +14,7 @@ def isTag(possible_tag: str):
 
 
 def tagExists(tag: str):
+    tags_and_folders = paths.start()
     if tag in tags_and_folders.keys():
         return True
     else:
@@ -19,14 +23,21 @@ def tagExists(tag: str):
 
 class new_tag_window:
     config = Config()
+    answer = None
+    TNF_dict = None
 
-    def __init__(self, tag: str):
+    def __init__(self, initial_tag: str):
         black = "#000000"
         layout = [
             [sg.Text("NEW TAG FORM", font="Arial 16 bold", text_color=black)],
-            [sg.Text("TAG:       ", text_color=black),
-            sg.InputText(default_text=tag.upper(), size=(5, 1), key="-TAG-", font="Arial 10")],
-            [sg.Text("FOLDER:", text_color=black), sg.Input(default_text=tag.lower(), size=(8, 1), key="-FOLDER-")],
+            [sg.Text("TAG:       ", text_color=black, font="Arial 12"),
+            sg.InputText(default_text=initial_tag.upper(), size=(5, 1), key="-TAG-", font="Times 14 bold")],
+            [sg.Text("FOLDER:", text_color=black, font="Arial 12"), sg.InputText(default_text=initial_tag.lower(), size=(5, 1), key="-FOLDER-", font="Arial 14")],
+            [sg.VPush()],
+            [sg.Push(), sg.Text("PREVIEW", font="Arial 14"), sg.Push()],
+            [sg.VPush()],
+            [sg.Push(), sg.Text("", font="Arial 12",key="-TNF_PREVIEW-"), sg.Push()],
+            [sg.VPush()],
             [sg.Submit(button_color="#2a850e")]
 
         ]
@@ -35,22 +46,98 @@ class new_tag_window:
         self.enter = self.window.bind("<Key-Return>", "enter")
 
         while True:
-            event, keys = self.window.read()
-            print(event)
+            event, keys = self.window.read(timeout=100)
+
+            #if keys list is not null (None), update the preview in the GUI
+            if keys is not None :
+
+
+                #turns the nested directory path into split directories
+                dir_obj = pathlib.PurePath(keys['-FOLDER-'])
+
+                #list the directories
+                directories = list(dir_obj.parts)
+
+                TNF_PREVIEW = "" #this is the text which will be shown in the GUI
+                PATH = AUTOF #initial path to add up to the new directories
+                NEW_DIRS = {} # a dictionary to storage the new tags and folders
+
+                #loop through the directories list
+                for index, dir in enumerate(directories):
+
+                    inside_tag = keys['-TAG-'].upper() #this is the tag announced by the User
+
+                    PATH += f"{dir}/" #increments the path the nested directories in the list
+
+
+
+                    # verify if the directory already exists
+                    #if the path already exists, it must not create a new tag.
+
+                    AlreadyExist, key = ExistsOnConfigfile("value", PATH, return_alterElement=True)
+
+                    if AlreadyExist:
+                        inside_tag = key.upper()
+
+                    #the tag announced by the User must always be assigned to the last directory
+                    #if the directory is not the last one and it does not exists yet, create a new tag
+                    if (index != len(directories)-1 and not AlreadyExist) or (keys['-TAG-'] is None or keys['-TAG-'] == ""):
+
+                        #initially creates a tag based on the three first letters of directory's name
+                        built_tag = dir[:3].upper()
+
+
+
+
+                        inside_tag = built_tag
+                    text = f"TAG: {inside_tag}  PATH: {PATH}\n\n"
+                    NEW_DIRS[inside_tag] = PATH
+                    TNF_PREVIEW += text
+                self.window["-TNF_PREVIEW-"].update(TNF_PREVIEW)
+                self.TNF_dict = NEW_DIRS
+
+
             if event == sg.WIN_CLOSED or event == self.esc or event == "Cancel":
+                self.answer = False
                 break
 
             elif event == "Submit" or event == self.enter:
-                self.config.set("tags", f"{keys['-TAG-'].upper()}", AUTOF + keys['-FOLDER-'] + "/")
-                with open(FILE, "w") as configFile:
-                    self.config.write(configFile)
-                break
+                isSubmit = self.__submit(self.TNF_dict)
+                if isSubmit:
+                    break
+                else:
+                    continue
+
+
+
 
         self.window.close()
         time.sleep(5)
-        ctf()
+    def returnment(self):
+        return self.answer
+    def __submit(self, TNF_dict:dict):
+        set = 0
+        for tag, path in TNF_dict.items():
+            AlreadyExist, _ = ExistsOnConfigfile("key", tag.lower())
+            if AlreadyExist:
+                continue
+
+            if len(tag) != 3:
+                sg.popup_error("Please, type a three letter tag.")
+                return False
+
+            self.config.set("TAGS", tag, path)
+            set += 1
+
+        if set > 0:
+            with open(FILE, "w") as configFile:
+                self.config.write(configFile)
+            self.answer = True
+            sg.popup_ok("New Tags Created")
+        return True
 
 class verify_tag_window:
+    answer = None
     def __init__(self, tag: str):
         layout = [
             [sg.Text(f"Add a new tag named", font="Arial 16 bold"),
@@ -68,13 +155,15 @@ class verify_tag_window:
 
         elif event == "OK" or event == self.enter:
             self.window.close()
-            new_tag_window(tag)
+            self.answer = new_tag_window(tag).returnment()
+    def returnment(self):
+        return self.answer
 
 class files_of_tag:
     config = Config()
     def __init__(self, tag:str):
         column = [[sg.Push(), sg.Text(f"FILES OF TAG {tag.upper()}", font="Arial 16 bold", text_color="#000000"), sg.Push(), sg.VPush()]]
-        files = os.listdir(config["tags"][tag.lower()])
+        files = os.listdir(self.config["TAGS"][tag.lower()])
         for file in files:
             semicol = [sg.Text(file, font="Arial 12", text_color="#000000")]
             column.append(semicol)
@@ -92,7 +181,7 @@ class files_of_tag:
 class tag_list_window:
     config = Config()
     def __init__(self):
-        self.tag_list = list(self.config["tags"])
+        self.tag_list = list(self.config["TAGS"])
         column = [
             [sg.Push(), sg.Text("All TAGS", font="Arial 16 bold", text_color="#000000"), sg.Push()]
         ]
@@ -107,7 +196,6 @@ class tag_list_window:
             if event == sg.WIN_CLOSED:
                 break
             else:
-                print(event)
                 files_of_tag(event)
         self.window.close()
 
@@ -126,10 +214,6 @@ class CTF_menu:
             [sg.VPush(), sg.Push(), sg.Button("All Tags", key="-ALL-", font="Arial 14", size=(15,1),), sg.Push()],
             [sg.VPush()],
             [sg.VPush()],
-            [sg.Push(), sg.Text("Auto-Filter:", font="Arial 14", text_color="#000000"), sg.Push()],
-            [sg.Push(), sg.Radio("on", "STATUS", key="online", default=True, font="Arial 14"), sg.Push()],
-            [sg.Push(), sg.Radio("off", "STATUS", key="offline", font="Arial 14"), sg.Push()],
-            [sg.VPush()],
             [sg.Push(), sg.Cancel("LEAVE", key="-EXIT-", font="Arial 12"), sg.Push()]
         ]
         self.window = sg.Window("CTF menu").layout(layout).finalize()
@@ -138,15 +222,6 @@ class CTF_menu:
         while True:
             event, value = self.window.read()
             if event == sg.WIN_CLOSED or event == "-EXIT-":
-                if value is not None:
-                    if value["online"]:
-                        self.config.set("autofilter", "status", "online")
-                        with open(FILE, "w") as configFile:
-                            self.config.write(configFile)
-                    elif value["offline"]:
-                        self.config.set("autofilter", "status", "offline")
-                        with open(FILE, "w") as configFile:
-                            self.config.write(configFile)
                 break
             elif event == "-START-":
                 ctf()
@@ -159,5 +234,4 @@ class CTF_menu:
 
 
 if __name__ == "__main__":
-    window = CTF_menu()
-    window.init()
+    new_tag_window("ACL")

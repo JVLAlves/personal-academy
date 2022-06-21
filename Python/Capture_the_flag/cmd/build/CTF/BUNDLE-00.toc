@@ -1,3 +1,0 @@
-([('CTF',
-   '/Users/joao/projects/repo/personal-academy/Python/Capture_the_flag/cmd/dist/CTF',
-   'EXECUTABLE')],)

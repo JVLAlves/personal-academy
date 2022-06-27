@@ -31,8 +31,7 @@ if __name__ == "__main__":
         dataframe["Skill Count"].append(len(operator["skills"]) if operator["skills"] != None else 0)
     
     df = pd.DataFrame(dataframe)
-    print(df)
-    df.to_excel("./operators_in_database.xlsx")
+    print(df.loc[df["Type"]=="Medic",["Name"]])
 
     """for operator in operators:
         if operator["type"] not in types.keys():

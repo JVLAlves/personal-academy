@@ -2,8 +2,11 @@ from configparser import ConfigParser
 
 import edit as edit
 from docxtpl import DocxTemplate
+import file_management as filem
+import const
 import excel as xl
 import PySimpleGUI as sg
+from login import *
 
 TEMPLATE, TABLE= xl.init()
 configFile = "deluiz_config.ini"
@@ -20,7 +23,7 @@ def GenerateFileFromDefaultDocx(context:dict, template:xl.File=xl.File(TEMPLATE)
 
     # saves the new document with the wishing name
     #TODO: Custom place of saving
-    doc.save(f"{context['cliente_fullname'].replace(' ', '')}_litigation.docx")
+    doc.save(f"{context['cliente_fullname'].replace(' ', '')}{const.FILE_WATERMARK}{const.FILE_EXTENSION}")
 
 
 
@@ -149,8 +152,6 @@ class choose_automation_window:
                 automation = event
                 automation_window(automation)
                 continue
-
-
         window.close()
 
 
@@ -246,9 +247,18 @@ class main_window:
             elif event == "-CHOOSE-":
                 choose_automation_window()
         self.window.close()
-        exit()
+        return
 
 if __name__ == "__main__":
-    main = main_window()
-    main.open()
+    IsLogged = LOGIN()
+    if IsLogged:
+        main = main_window()
+        main.open()
+        files = filem.track()
+        if files is None or len(files) == 0:
+            exit()
+        dirpath = filem.makefile(files)
+        filem.ZipAndClose(dirpath)
+    else:
+        exit()
 

@@ -55,8 +55,8 @@ def generate_timer(seconds:int):
 
     return timer
 
-
-def Neraph(func, seed:float, epsilon:float, tolerance:float, max_iterations:int=100):
+# this is a function which represents the Newton Raphson iteration metthod.
+def Neraph(func, seed:float, epsilon:float, tolerance:float=0.001, max_iterations:int=100):
 
     x0 = seed
 
@@ -87,6 +87,6 @@ if __name__ == "__main__":
     print(type(x))
     EqP1 = EquationPack(x, ((x**2)*(x-1000)+1))
     eq = create_eq(EqP1.Solve)
-    Neraph(eq, 1, 0.5, 0.0001)
+    Neraph(eq, 1, 0.5)
 
 

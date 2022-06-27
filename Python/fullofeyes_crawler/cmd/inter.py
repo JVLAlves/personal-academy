@@ -16,7 +16,7 @@ class main:
         layout = [
             [sg.VPush()],
             [sg.Push(), sg.Text("Full of Eyes Image Searcher", font="Arial 16 bold"), sg.Push()],
-            [sg.Push(), sg.Text("Versículo: "), sg.Input(key="verse", default_text="joão 3:16"), sg.Push()],
+            [sg.Push(), sg.Text("Versículo: "), sg.Input(key="verse", default_text="john 3:16"), sg.Push()],
             [sg.Push(), sg.Button("Search", key="search"), sg.Push()],
             [sg.VPush()],
         ]
@@ -124,6 +124,7 @@ class Afirmative:
                 with Image.open(io.BytesIO(png_data)) as im:
                     im.save(filename, "PNG")
                 sg.popup("Image Downloaded.", title="Success!")
+
         self.window.close()
 
 
@@ -156,15 +157,17 @@ class Possible:
 
         self.window.close()
 
-win = main()
-ans, objs = win.Run()
-if ans:
-    Afirmative(objs)
-else:
-    if objs is not None:
-        Possible(objs)
+
+if __name__ == "__main__":
+    win = main()
+    ans, objs = win.Run()
+    if ans:
+        Afirmative(objs)
     else:
-        sg.popup("No image found for the searched verse.", title="Not Found")
+        if objs is not None:
+            Possible(objs)
+        else:
+            sg.popup("No image found for the searched verse.", title="Not Found")
 
 """
 
@@ -179,3 +182,12 @@ TODO LIST
 
 
 """
+
+#ERROR:Book of John (João) Cannot be found. Maybe it is a problem in the translation.
+#TODO: Improve the GUI of 'CHOICES' (buttons) and the presentation GUI.
+#TODO: Improve Image download method and resolution.
+#TODO: Check the error of translation.
+#TODO: Faster the webscrapping, if possible.
+#TODO: Create english and portuguese versions.
+
+

@@ -29,7 +29,7 @@ class File:
 
 
 
-
+#TODO: Refactor function to have no default values, but first initiation window
 def init():
     file = "deluiz_config.ini"
     if not os.path.exists(file):

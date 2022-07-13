@@ -5,38 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7621d630-54e8-45d0-af4e-643447e6ffe7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../college/archive/pdf.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../college/calculus/statistics.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../college/soil/soilclasses.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../GO/mongo/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/../../GO/mongo/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Arkcrawler/Kaltsit/arknomicon.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Arkcrawler/Kaltsit/arknomicon.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Arkcrawler/Kaltsit/pandas/arkpandas.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Arkcrawler/Kaltsit/pandas/arkpandas.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Arkcrawler/Kaltsit/tactical.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Arkcrawler/Kaltsit/tactical.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Capture_the_flag/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Capture_the_flag/.idea/Capture_the_flag.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Capture_the_flag/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Capture_the_flag/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Capture_the_flag/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Capture_the_flag/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Capture_the_flag/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Capture_the_flag/cmd/.tags.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Capture_the_flag/cmd/CTF.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Capture_the_flag/cmd/const.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Capture_the_flag/cmd/ctf.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Capture_the_flag/cmd/ctf_hq.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Capture_the_flag/cmd/paths.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Capture_the_flag/cmd/tester.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Capture_the_flag/installer/CTF.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Capture_the_flag/installer/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Capture_the_flag/installer/ctf_install.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../college/.idea/college.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../college/.idea/college.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../college/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../college/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../college/calculus/itermethods.py" beforeDir="false" afterPath="$PROJECT_DIR$/../college/calculus/itermethods.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/inter.py" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/inter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../litigation/const.py" beforeDir="false" afterPath="$PROJECT_DIR$/../litigation/const.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../litigation/deluiz_config.ini" beforeDir="false" afterPath="$PROJECT_DIR$/../litigation/deluiz_config.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../litigation/excel.py" beforeDir="false" afterPath="$PROJECT_DIR$/../litigation/excel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../litigation/file_management.py" beforeDir="false" afterPath="$PROJECT_DIR$/../litigation/file_management.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../litigation/litty.py" beforeDir="false" afterPath="$PROJECT_DIR$/../litigation/litty.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../litigation/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/../litigation/login.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,13 +32,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.toDoOptions&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="inter" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="fullofeyes_crawler" />
@@ -100,5 +77,16 @@
       <updated>1654812342364</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/cmd/inter.py</url>
+          <line>49</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

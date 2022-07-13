@@ -22,18 +22,29 @@ class main:
         ]
         self.window = sg.Window("main window").layout(layout)
 
+    #executes the main window process of opening and functioning
     def Run(self):
         while True:
             event, value = self.window.Read()
             print(event)
             if event == sg.WIN_CLOSED:
                 break
+
+            #When the only functional button "search" is clicked it triggers the searching process
             elif event == "search":
                 verse = value["verse"]
                 print(verse)
+
+                #gets the whole pattern as Matthew 24:11
                 pattern = re.compile("([^\W\d_]+)\s(\d{1,3}):(\d{1,3}-\d{1,3}|\d{1,3})")
+
+                #gets the chapter from the reference as 24 of Matthew 24:11
                 pattern_chapter = re.compile("([^\W\d_]+)\s(\d{1,3})")
+
+                #gets the book name from the reference as Matthew from Matthew 24:11
                 pattern_book = re.compile("([^\W\d_]+)")
+
+
                 if re.match(pattern, verse):
                     agroupment = re.findall(pattern, verse)
                     print(agroupment[0])

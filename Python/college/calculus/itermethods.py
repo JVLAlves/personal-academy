@@ -1,4 +1,4 @@
-
+import random
 import time
 import sympy as symp
 
@@ -77,16 +77,33 @@ def Neraph(func, seed:float, epsilon:float, tolerance:float=0.001, max_iteration
 
     print("FAIL!")
 
+########################################################################################################################
 
+def GenerateCoinLauncher():
 
+    def CoinLauncher():
+        coin = ["head", "tail"]
+        return random.choice(coin)
 
+    return CoinLauncher
 
 if __name__ == "__main__":
+    coin = GenerateCoinLauncher()
+    x = 0
+    throws = 100
+    CoinClipboard = {"head": 0, "tail": 0}
+    while x <=throws :
 
-    x = symp.symbols("x")
-    print(type(x))
-    EqP1 = EquationPack(x, ((x**2)*(x-1000)+1))
-    eq = create_eq(EqP1.Solve)
-    Neraph(eq, 1, 0.5)
+        side = coin()
+        CoinClipboard[side]+= 1
+        x+=1
+
+    print(CoinClipboard)
+
+    # x = symp.symbols("x")
+    # print(type(x))
+    # EqP1 = EquationPack(x, (2*x - 1))
+    # eq = create_eq(EqP1.Solve)
+    # Neraph(eq, 1, 0.5)
 
 

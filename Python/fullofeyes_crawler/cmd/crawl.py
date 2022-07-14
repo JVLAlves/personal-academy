@@ -10,9 +10,9 @@ from biblepaths import bible, toBooks, Passage, Image
 import re
 
 
-def Search(book: str, link: str = "https://www.fullofeyes.com/resources/search-art-by-scripture/", head: bool = True):
+def Search(book: str, link: str = "https://www.fullofeyes.com/resources/search-art-by-scripture/", headless: bool = True):
     option = Options()
-    option.headless = head
+    option.headless = headless
     service = ChromeService(executable_path=ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=option)
     driver.get(link)
@@ -29,9 +29,9 @@ def Search(book: str, link: str = "https://www.fullofeyes.com/resources/search-a
         return book_ref.get_attribute("href")
 
 
-def Analyse(href: str, head: bool = True):
+def Analyse(href: str, headless: bool = True):
     option = Options()
-    option.headless = head
+    option.headless = headless
     service = ChromeService(executable_path=ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=option)
     driver.get(href)

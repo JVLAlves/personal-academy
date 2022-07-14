@@ -1,1 +1,5 @@
-package mongo
+package main
+
+func main() {
+
+}

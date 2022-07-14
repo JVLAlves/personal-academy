@@ -1,4 +1,4 @@
- <img align="right" alt="ark-pic" height="215" style="border-radius:50px;" src="https://github.com/JVLAlves/personal-academy/blob/master/Python/Arkcrawler/images/4148b681c1b08841f38ba3a275c435df-removebg-preview.png">
+ <img align="right" alt="ark-pic" height="215" style="border-radius:50px;" src="https://github.com/JVLAlves/personal-academy/blob/master/Python/Arkcrawler/images/liskraw.png">
 
 # LISKRAW
 

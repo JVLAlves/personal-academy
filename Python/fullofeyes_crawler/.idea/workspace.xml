@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7621d630-54e8-45d0-af4e-643447e6ffe7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../college/archive/pdf.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../college/calculus/statistics.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../college/soil/soilclasses.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../GO/mongo/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/../../GO/mongo/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../college/.idea/college.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../college/.idea/college.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../college/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../college/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../college/calculus/itermethods.py" beforeDir="false" afterPath="$PROJECT_DIR$/../college/calculus/itermethods.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/crawl.py" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/crawl.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/inter.py" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/inter.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -83,7 +78,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/cmd/inter.py</url>
-          <line>49</line>
+          <line>55</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

@@ -1,9 +1,11 @@
-# CAPTURE THE FLAG
+ <img align="center" alt="CTF" height="150" style="border-radius:50px;" src="https://github.com/JVLAlves/personal-academy/blob/master/Python/Capture_the_flag/CTF.png">
 
-## An application for you to organize your files automatically.
+# CAPTURE THE FLAG - An application for you to organize your files automatically.
 
-### You only need to add a three letters tag before the file's name while you're downloading it.
-### For this application to work properly (at least on MacOS) you will need to associate it with the _Automator_ app.
+
+
+#### You only need to add a three letters tag before the file's name while you're downloading it.
+#### For this application to work properly (at least on MacOS) you will need to associate it with the _Automator_ app.
 
 
 ## INSTALLING:
@@ -19,11 +21,10 @@
 <p>A TAG is a set of three uppercase letters. i.e. ART , for an arts' folder. </p>
 <p>When you use it on the files, you must type two strokes (--) right after the TAG. i.e. "ART--AnMazingArt.jpg"</p>
 
----
 
 ## AUTOMATING:
 
-<p>For you to automate it, you will need to use the <em>Automator</em> app. You can find in the Lauchpad or by searcing it in the Spotlight <code>command + spacebar</code>.</p>
+<p>For you to automate it, you will need to use the <em>Automator</em> app. You can find in the Lauchpad or by searcing it in the Spotlight.</p>
 <p>When it's open you must follow this is steps:</p>
 
 1. Select the option called _Folder Action_.
@@ -37,9 +38,8 @@ cd #your/desktop/path
 ```
 4. Save and close it.
 
-### Now you have an automated file filter.
+## Now you have an automated file filter!
 
----
 
 ## BONUS:
 

@@ -3,7 +3,14 @@ import random
 import arknomicon as ark
 from pprint import *
 import pymongo as mg
+import pandas as pd
 
+class operator_resume:
+    def __init__(self, operator_dict:dict):
+        self.name = operator_dict["name"]
+        self.type = operator_dict["type"]
+        self.archetype = operator_dict["archetype"]
+        self.url_access = operator_dict["url"]
 
 
 def get_from_type(type:str, collection:mg.collection.Collection=ark.kaltsitCollection):
@@ -128,11 +135,89 @@ def balanced_formation():
         SQUAD['team'][index] = mongo_operator
     return SQUAD
 
+def core_formation(operator_core:str):
+    JUMP = False
+    SQUAD = {
+        "build": {
+            "medic": 2,
+            "defender": 1,
+            "vanguard": 2,
+            "sniper": 2,
+            "caster": 2,
+            "guard": 2,
+            "any": 1
+        },
+        "team": []
+    }
+
+    #prepare already given data
+    core_operator = ark.get_operator(operator_core)
+    recommendation = core_operator["synergy"]
+
+    for field in recommendation.keys():
+        for index, operator in enumerate(recommendation[field]):
+            print(f"Analysing operator: {operator if isinstance(operator, str) else f'object of {operator.name}'}")
+            if isinstance(operator, operator_resume):
+                continue
+
+            try:
+                character = ark.get_operator(operator)
+                if character is None:
+                    raise Exception()
+            except:
+                continue
+            else:
+                recommendation[field][index] = operator_resume(character)
 
 
-SQUAD = balanced_formation()
+    for field in recommendation.keys():
+        toRemove = []
+        for operator in recommendation[field]:
+            if isinstance(operator, str):
+                toRemove.append(operator)
+            elif isinstance(operator, operator_resume):
+                print(f"name: {operator.name} from {operator}")
+            else:
+                continue
+
+        for removable in toRemove:
+            recommendation[field].remove(removable)
+
+    pprint(recommendation)
 
 
+    recommendation_length = len(recommendation.keys())
+
+    squad_length = 0
+
+    for v in SQUAD["build"].values():
+        squad_length += v
+
+    if squad_length <= 0:
+        raise Exception("Error measuring the Squad length.")
+
+    global DFs
+
+    for field in recommendation.keys():
+        dataframe = {
+            "name": [],
+            "type": [],
+            "archetype": [],
+        }
+        for index, operator in enumerate(recommendation[field]):
+            dataframe["name"].append(operator.name)
+            dataframe["type"].append(operator.type)
+            dataframe["archetype"].append(operator.archetype)
+
+        df = pd.DataFrame(dataframe)
+        DFs.append(df)
+    
+
+
+
+
+if __name__ == "__main__":
+    core_formation("W")
 
 
 """

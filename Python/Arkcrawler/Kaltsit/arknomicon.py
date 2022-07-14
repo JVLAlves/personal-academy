@@ -4,12 +4,14 @@ from pprint import pprint
 
 import pymongo as mg
 from pymongo.server_api import ServerApi
-
 client = mg.MongoClient(
     "mongodb+srv://joao:sdl170502@kaltsit.gyy0s.mongodb.net/kaltsit?retryWrites=true&w=majority",
     server_api=ServerApi('1'))
 database = client["kaltsit"]
-kaltsitCollection = database["operators"]
+try:
+    kaltsitCollection = database["operators"]
+except:
+    print("Is this a new computer?\nHave you added the new IP?\n")
 
 
 def add_field(field: str, collection: mg.collection.Collection=kaltsitCollection, default_value=None):

@@ -1,8 +1,21 @@
+from pprint import pprint
+
 import PySimpleGUI as sg
 import mongo.mongo_automation_cmds as mg_auto
-
+from login_interface import initiate_login_window
 class AUTOMATION_INTERFACE:
 
+    #THE FIRST TAB THE USER WILL SEE
+    TAB_INTRO = [
+        [sg.VPush()],
+        [sg.Push(), sg.Text("LITTY", font="Times 16 bold", text_color="#000000"), sg.Push()],
+        [sg.Push(), sg.Text("Automatização de Processos Litigiosos", font="Times 12", text_color="#000000"), sg.Push()],
+        [sg.VPush()],
+        [sg.VPush()],
+        [sg.Push(), sg.Text("Made by J. V. L. Alves", font="Times 10 italic", text_color="#000000")]
+    ]
+
+    #THE TAB FOR CREATING A NEW AUTOMATION
     TAB_CREATE = [
         [sg.Push(), sg.Text("CREATE A AUTOMATION", font="Times 14 bold", text_color="#000000"), sg.Push()],
         [sg.VPush()],
@@ -13,14 +26,29 @@ class AUTOMATION_INTERFACE:
         [sg.VPush()],
         [sg.VPush(), sg.Push(), sg.Button("SUBMIT"), sg.Push()],
     ]
+
+
+
+    #THE BASE TAB WHICH WILL BE COMPLITED WITH THE AUTOMATION
+    TAB_MINE = [
+        [sg.Push(), sg.Text("MY AUTOMATIONS", font="Times 14 bold", text_color="#000000"), sg.Push()],
+        [sg.VPush()],
+    ]
+
     def __init__(self, currentUser=None):
         self.User = currentUser
 
+        self.__get_automation_name()
+        #################--| WINDOW SETTINGS |--##########################################
         self.layout = [
+            [sg.Text(f"Account: {self.User}", font="Arial 10")],
+            [sg.VPush()],
             [sg.TabGroup(
                 [[
-                    sg.Tab("CREATE", self.TAB_CREATE),
-                ]]
+                    sg.Tab("WELCOME", self.TAB_INTRO, font="Tahoma, 12"),
+                    sg.Tab("CREATE", self.TAB_CREATE, font="Tahoma, 12"),
+                    sg.Tab("AUTOMATIONS", self.TAB_MINE,font="Tahoma, 12")
+                ]], selected_title_color="#BF945A", selected_background_color="#13476A"
             )
             ]
         ]
@@ -57,44 +85,18 @@ class AUTOMATION_INTERFACE:
                         mg_auto.insert_automation(automation)
                         sg.popup_notify(f"`{name}`Automation created sucessfully!")
 
+    def __get_automation_name(self):
+        autos =  mg_auto.query_automation({"created_by":f"{self.User}"})
+        for automation in autos:
+            element = [sg.Push(), sg.Button(automation["name"], font="Times 16"), sg.Push()]
+            self.TAB_MINE.append(element)
 
-        self.window.close()
-
-class MAIN_INTERFACE:
-    WINDOW_NAME = "LITTY"
-
-    def __init__(self):
-        self.layout = [
-            [sg.Push(), sg.Text(self.WINDOW_NAME, font="Times 14 bold", text_color="#000000"), sg.Push()],
-            [sg.Push(), sg.Text("Automação de Processos Litigiosos", font="Times 10", text_color="#000000"), sg.Push()],
-            [sg.VPush()],
-            [sg.Push(), sg.Button("Automation", key='-AUTO-'), sg.Push()]
-
-        ]
-
-        self.window = sg.Window(self.WINDOW_NAME).layout(self.layout)
-
-    def init(self):
-        while True:
-            event, _ = self.window.read()
-
-            if event == sg.WIN_CLOSED:
-                break
-            elif event == '-AUTO-':
-                self.window.close()
-                self.automation()
-                exit()
-        self.window.close()
-
-
-
-    def automation(self):
-        AUTOMATION_INTERFACE()
-
+        self.TAB_MINE.append([sg.VPush()])
 
 if __name__ == '__main__':
-    MAIN = MAIN_INTERFACE()
-    MAIN.init()
+    USER = initiate_login_window()
+    MAIN = AUTOMATION_INTERFACE(USER)
+
 
 
 #TODO: add login and sigin tabs

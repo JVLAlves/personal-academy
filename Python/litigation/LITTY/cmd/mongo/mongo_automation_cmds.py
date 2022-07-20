@@ -1,12 +1,18 @@
 import pymongo as mg
 from pymongo.server_api import ServerApi
 
-client = mg.MongoClient("mongodb+srv://joao:sdl170502@litty.tivgq.mongodb.net/test", server_api=ServerApi('1'))
+global automation_collection
 
-database = client["litty"]
-automation_collection = database['automation']
-user_collection = database['users']
+if __name__ != '__main__':
 
+    try:
+        client = mg.MongoClient("mongodb+srv://joao:sdl170502@litty.tivgq.mongodb.net/test", server_api=ServerApi('1'))
+    except:
+        raise ConnectionError
+
+    else:
+        database = client["litty"]
+        automation_collection = database['automation']
 
 ################## COMANDOS PARA AUTOMAÇÕES #############################################################################
 #acrescenta um automação ao banco
@@ -27,9 +33,13 @@ def get_automation(automation_name:str, collection:mg.collection.Collection=auto
 
 #pega uma automação no banco utilizando o metodo de query
 def query_automation(query:dict, collection:mg.collection.Collection=automation_collection):
-    if collection.find_one(query) != None:
-        automation = dict(collection.find_one(query))
-        return automation
+    automations = []
+    if collection.find(query) != None:
+        for each in collection.find(query):
+            automation = dict(each)
+            automations.append(automation)
+
+        return automations
     else:
         raise Exception("This query result in null. Please, make sure it was written correctly.")
 

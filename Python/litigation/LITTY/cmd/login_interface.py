@@ -120,7 +120,7 @@ class LOGIN:
                 USER = mg_users.get_user(USERNAME)
 
                 if USER["password"] == PASSWORD:
-                    return True, USERNAME
+                    return USERNAME
                 else:
                     if self.retries > 0:
                         self.retries -= 1
@@ -143,12 +143,15 @@ class LOGIN:
             return
 
 
-if __name__ == '__main__':
+def initiate_login_window():
     if not mg_users.user_any():
         REGISTRATION()
 
     LOG = LOGIN()
-    print(LOG.open())
+    return LOG.open()
 
+
+if __name__ == '__main__':
+    pass
 #TODO: fix first registration
 #TODO: specific kind of password verification

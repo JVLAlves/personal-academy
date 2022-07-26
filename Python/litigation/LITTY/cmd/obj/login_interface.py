@@ -1,15 +1,14 @@
-import re
-
 import PySimpleGUI as sg
-import mongo.mongo_users_cmds as mg_users
+import LITTY.cmd.mongo.mongo_users_cmds as mg_users
+import LITTY.glob.globals as glob
 
 
 class REGISTRATION:
     layout = [
-        [sg.Push(), sg.Text("USER REGISTRATION", font="Times 14 bold", text_color="#000000"), sg.Push()],
+        [sg.Push(), sg.Text("USER REGISTRATION", font=glob.FONT_TITLE.toPySimpleGui(), text_color=glob.FONT_TITLE.color), sg.Push()],
         [sg.Push(), sg.Text("USER: "), sg.Input(size=(16, 1), key="-USER-"), sg.Text(key="-AVAILABLEUSER-"), sg.Push()],
-        [sg.Push(), sg.Text("PASSWORD: "), sg.Input(size=(8, 1), key="-PSWD-", password_char="*"),
-         sg.Text(key="-AVAILABLEPASS-"), sg.Push()],
+        [sg.Push(), sg.Text("PASSWORD: "), sg.Input(size=(8, 1), key="-PSWD-", password_char="*"), sg.Text(key="-AVAILABLEPASS-"), sg.Push()],
+        [sg.Push(), sg.FolderBrowse(key="-DPATH-"), sg.Text("choose a Download path"), sg.Push()],
         [sg.VPush()],
         [sg.Push(), sg.Button("REGISTER", key="-REGISTER-"), sg.Push()],
     ]
@@ -57,8 +56,9 @@ class REGISTRATION:
 
                     USERNAME = values["-USER-"]
                     PASSWORD = values["-PSWD-"]
+                    DOWNLOADS = values["-DPATH-"]
 
-                    USER = {"username": USERNAME, "password": PASSWORD}
+                    USER = {"username": USERNAME, "password": PASSWORD, "download_folder": DOWNLOADS}
 
                     if self.username_available and self.password_available:
                         mg_users.insert_user(USER)

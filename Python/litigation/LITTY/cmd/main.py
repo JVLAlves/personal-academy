@@ -1,14 +1,18 @@
+import datetime
+
 import PySimpleGUI as sg
 
 import LITTY.cmd.mongo.mongo_automation_cmds as mg_auto
 from LITTY.cmd.obj.login_interface import initiate_login_window
 import LITTY.glob.globals as glob
 from LITTY.cmd.obj.automation_interface import automation_window
+from LITTY.cmd.fileaction.excel import File
+from LITTY.cmd.obj.popup_interfaces import popup_download
 
 class AUTOMATION_INTERFACE:
 
     user_automations = []
-    user_automations_headers = ["AUTOMATION"]
+    user_automations_headers = ["AUTOMATION", "DATE OF CREATION", "DOCX", "TABLE"]
 
     #THE FIRST TAB THE USER WILL SEE
     TAB_INTRO = [
@@ -31,6 +35,9 @@ class AUTOMATION_INTERFACE:
         [sg.FileBrowse(file_types=[("xlsx", "*.xlsx"), ("csv", "*.csv")], key="-TBLPATH-", tooltip="This file must be a Microsoft Excel .xlsx table or a .csv file. This file must contain the data for the automation."), sg.Text("choose a table")],
         [sg.Radio("Vertical", "TablePosition", key="vertical"), sg.Radio("Horizontal", "TablePosition", default=True, key="horizontal")],
         [sg.VPush()],
+        [sg.FolderBrowse(key="-DOWNLOADPATH-",tooltip="This file must be a Microsoft Word .docx tagged file. It will be used to automatic generate files from the data in the table."),
+         sg.Text("choose a folder to download the end files")],
+        [sg.VPush()],
         [sg.VPush(), sg.Button("SUBMIT")],
     ]
 
@@ -40,7 +47,7 @@ class AUTOMATION_INTERFACE:
     TAB_MINE = [
         [sg.Push(), sg.Text("MY AUTOMATIONS", font=glob.FONT_H1.toPySimpleGui(), text_color=glob.FONT_H1.color), sg.Push()],
         [sg.VPush()],
-        [sg.Push(), sg.Table(values=user_automations, headings=user_automations_headers, display_row_numbers=False, justification="center", key="-AUTO_TABLE-", tooltip="Automations' table", enable_click_events=True), sg.Push()],
+        [sg.Push(), sg.Table(values=user_automations, headings=user_automations_headers, auto_size_columns=True, display_row_numbers=True, justification="center", key="-AUTO_TABLE-", tooltip="Automations' table", enable_click_events=True), sg.Push()],
     ]
 
 
@@ -56,26 +63,29 @@ class AUTOMATION_INTERFACE:
                     sg.Tab("WELCOME", self.TAB_INTRO, font=glob.FONT_P2.toPySimpleGui()),
                     sg.Tab("CREATE", self.TAB_CREATE, font=glob.FONT_P2.toPySimpleGui()),
                     sg.Tab("AUTOMATIONS", self.TAB_MINE, font=glob.FONT_P2.toPySimpleGui())
-                ]], selected_title_color=glob.COMPANY_YELLOW, selected_background_color=glob.COMPANY_BLUE
+                ]], key="-CURRENT_TAB-", selected_title_color=glob.COMPANY_YELLOW, selected_background_color=glob.COMPANY_BLUE
             )
             ]
         ]
         self.window = sg.Window("AUTOMATION").layout(self.layout)
 
+
+
         while True:
             event, values = self.window.read(timeout=100)
-            if event != "__TIMEOUT__":
-                print(event)
-
-            autos = mg_auto.query_automation({"created_by": f"{self.User}"})
-            if autos is not None:
-                for auto in autos:
-                    if auto["name"] not in self.user_automations:
-                        print(self.user_automations)
-                        self.user_automations.append(auto["name"])
-                        self.window["-AUTO_TABLE-"].update(values=self.user_automations)
-
-
+            if values is not None and values["-CURRENT_TAB-"] == "AUTOMATIONS":
+                autos = mg_auto.query_automation({"created_by": f"{self.User}"})
+                if autos is not None:
+                    for auto in autos:
+                        for ExistentAutomations in self.user_automations:
+                            if auto["name"] in ExistentAutomations[0]:
+                                break
+                        else:
+                            docx = File(auto["docx"]["initial_path"])
+                            table = File(auto["tbl"]["initial_path"])
+                            date = auto["timestamp"].strftime(glob.FILE_DATETIME_FORMAT)
+                            self.user_automations.append([auto["name"], date, docx.file, table.file])
+                    self.window["-AUTO_TABLE-"].update(values=self.user_automations)
 
             if values is not None and values["-AUTONAME-"] is not None:
                 #database verification
@@ -90,7 +100,7 @@ class AUTOMATION_INTERFACE:
                     self.section_available = False
 
             if event == sg.WIN_CLOSED:
-                break
+                exit()
 
             elif event == "SUBMIT":
                 if values is not None:
@@ -112,18 +122,25 @@ class AUTOMATION_INTERFACE:
                         elif values["horizontal"]:
                             orientation = "horizontal"
 
+                        dt = datetime.datetime
+                        dt_today = dt.now()  # the datetime of today
 
+                        download_path = values["-DOWNLOADPATH-"]
 
-                        automation = {"name": name, "docx":{"initial_path":docx, "content":docx_content},"tbl":{"initial_path":table, "content":tbl_content, "orientation":orientation}, "created_by":user}
+                        automation = {"name": name, "docx":{"initial_path":docx, "content":docx_content},"tbl":{"initial_path":table, "content":tbl_content, "orientation":orientation}, "created_by":user, "timestamp":dt_today, "download_path": download_path}
 
                         mg_auto.insert_automation(automation)
                         sg.popup_notify(f"`{name}`Automation created sucessfully!")
-            elif event != sg.TIMEOUT_EVENT:
-                automation_window(event, self.User)
+            elif event != sg.TIMEOUT_EVENT and isinstance(event, tuple) and event[0]=="-AUTO_TABLE-":
+                print(event)
+                table_axys = event[2]
+                row, _ = table_axys
+                automation_focused = self.user_automations[row][0]
+                automation_window(automation_focused, self.User)
 
 if __name__ == '__main__':
-    USER = initiate_login_window()
-    MAIN = AUTOMATION_INTERFACE(USER)
+    #USER = initiate_login_window()
+    MAIN = AUTOMATION_INTERFACE("joao")
 
 
 

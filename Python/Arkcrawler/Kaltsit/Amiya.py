@@ -71,7 +71,7 @@ def Getpic(url:str, BASEheight:int=myScreen().height, factor:float=2):
     png_data = png_bio.getvalue()
     return png_data
 
-def liskcraw(operator:str, elite:int=0, max_level:bool=True, default_level:int=1, link="https://www.gamepress.gg/arknights/operator/", head=True):
+def liskcraw(operator:str, elite:int=0, max_level:bool=True, default_level:int=1, link="https://www.gamepress.gg/arknights/operator/", headless=True):
     character_status = {"name": operator.capitalize()}
     # Dynamically install and set up a Google Chrome web driver for Selenium
     operator.lower()
@@ -84,7 +84,7 @@ def liskcraw(operator:str, elite:int=0, max_level:bool=True, default_level:int=1
 
     url = link + operator.lower()
     option = Options()
-    option.headless = head
+    option.headless = headless
     service = ChromeService(executable_path=ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=option)
 

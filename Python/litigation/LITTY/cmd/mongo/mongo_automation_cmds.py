@@ -53,9 +53,6 @@ def automation_exists(automation_name: str, collection: mg.collection.Collection
 
 
 def update_automation(query: dict, update: dict, collection: mg.collection.Collection = automation_collection):
-    if query.keys() != update.keys():
-        raise Exception("Impossible to update unrelated data.")
-
     change = {"$set": update}
     collection.update_one(query, change)
     return

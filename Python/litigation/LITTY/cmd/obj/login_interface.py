@@ -16,6 +16,7 @@ class REGISTRATION:
     def __init__(self):
         self.window = sg.Window("REGISTER").layout(self.layout)
 
+
         while True:
             event, values = self.window.read(timeout=100)
 
@@ -87,15 +88,16 @@ class LOGIN:
     def __init__(self):
         self.window = sg.Window("LOG IN").layout(self.layout)
 
+
     def open(self):
 
         while True:
             event, values = self.window.read()
             print(event)
             if event == sg.WIN_CLOSED:
-                break
+                exit()
 
-            elif event == "-LOGIN-":
+            elif event == "-LOGIN-" or event == "-LOGIN-" + "-Enter":
                 answer = self.__LOGIN(values)
                 if answer is not None:
                     self.window.close()

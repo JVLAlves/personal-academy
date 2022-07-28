@@ -27,12 +27,15 @@ def makefile(files:list, path:str):
     dt = datetime.datetime
     dt_today = dt.now() # the datetime of today
     today = dt_today.strftime(glob.FILE_DATETIME_FORMAT) # stringfy the datetime of today
-    os.mkdir(today) # the directory name must be the datetime
-    dirpath = path + "/" + today # the path for the directory
+    dirpath = path + "/" + today  # the path for the directory
+    os.mkdir(dirpath) # the directory name must be the datetime
+
 
     # iterate through the files with the file Watermark
-    for file in files:
-        file_newname = file.replace(f"{glob.FILE_WATERMARK}", "") # remove the file Watermark
+    for f in files:
+        file = path + "/" + f
+        file_newname = file.replace(f"_{glob.FILE_WATERMARK}", "") # remove the file Watermark
+        print(f"file: {file}\t new file : {file_newname}")
         os.rename(file, file_newname) # rename the file
         shutil.move(file_newname, dirpath) # move it to the directory
     return dirpath
@@ -40,7 +43,7 @@ def makefile(files:list, path:str):
 # zip the file and delete the directory
 def ZipAndClose(dirpath:str, automation_name:str):
 
-    global filename  # file name to zip it
+    filename = None
 
     # in case of not assigned name for the zip file, use the datetime of today
     if automation_name == "":
@@ -54,12 +57,13 @@ def ZipAndClose(dirpath:str, automation_name:str):
         dt = datetime.datetime
         dt_today = dt.now()  # the datetime of today
         today = dt_today.strftime(glob.FILE_DATETIME_FORMAT)  # stringfy the datetime of today
-        filename = automation_name+f"_{today}"
+        filename = os.path.dirname(dirpath) +f"/{automation_name}_{today}"
+        print(filename)
 
 
     # zip the file in the indicated directory path
     # also, it will be needed to indicate the name of the zipped file
-    shutil.make_archive(filename, "zip", dirpath)
+    shutil.make_archive(filename, "zip", root_dir=dirpath)
 
     # delete the directory with the files on it
     shutil.rmtree(dirpath)

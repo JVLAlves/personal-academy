@@ -4,8 +4,9 @@ import pandas as pd
 import os
 from configparser import ConfigParser
 
+
 class File:
-    def __init__(self, file:str):
+    def __init__(self, file: str):
 
         # verify if file path exists
         if not os.path.exists(file):
@@ -32,20 +33,19 @@ class File:
             raise Exception("File not supported")
 
 
-
-#this function opens the excel database and collect all data from it
-def getAllProcesses(file:File=File):
-
-    #list all the process information
+# this function opens the excel database and collect all data from it
+def getAllProcesses(file: File = File):
+    # list all the process information
     AllProcesses = []
     for row in file.DF.iterrows():
         index, df = row
         AllProcesses.append(dict(df))
     return AllProcesses
 
-def getByColumnValue( Column_header:str, value, file:File=File):
-    #Get all processes which correspond to a given condition
-    DFspec = file.DF.loc[file.DF[Column_header]==value]
+
+def getByColumnValue(Column_header: str, value, file: File = File):
+    # Get all processes which correspond to a given condition
+    DFspec = file.DF.loc[file.DF[Column_header] == value]
 
     # list all the process information
     specProcesses = []
@@ -55,13 +55,10 @@ def getByColumnValue( Column_header:str, value, file:File=File):
     return specProcesses
 
 
-
-
-def getVerticalHeaders(file:File, ColumnHeader:str):
-
+def getVerticalHeaders(file: File, ColumnHeader: str):
     DF = file.DF
 
-    keys = list(DF.loc[:,ColumnHeader])
+    keys = list(DF.loc[:, ColumnHeader])
 
     print(keys)
     answerSheet = {}
@@ -69,8 +66,6 @@ def getVerticalHeaders(file:File, ColumnHeader:str):
         answerSheet[str(k)] = None
     pprint(answerSheet)
     return answerSheet
-
-
 
 
 def CreateContextGenerator(file:File, verticalHeaders: bool = False):
@@ -90,6 +85,7 @@ def CreateContextGenerator(file:File, verticalHeaders: bool = False):
         """
 
         DF = file.DF
+        print(DF)
 
         headers = list(DF)
 
@@ -98,6 +94,18 @@ def CreateContextGenerator(file:File, verticalHeaders: bool = False):
         print(keys, values)
         answerSheet = {}
         for k, v in zip(keys, values):
+            if isinstance(v, str) and v.find(", ") != -1:
+                if k.lower().endswith("s"):
+
+                    answerSheet[str(k)] = v.strip()
+                else:
+                    endstr = None
+                    if k.islower() or k.istitle():
+                        endstr = "s"
+                    elif k.isupper():
+                        endstr = "S"
+                    answerSheet[str(k)+endstr] = v.strip()
+                v = v.strip().split(", ")
             answerSheet[str(k)] = v
         return [answerSheet]
 
@@ -109,10 +117,10 @@ def CreateContextGenerator(file:File, verticalHeaders: bool = False):
         :return: A list with contexts.
         """
 
-
         answerSheets = []
 
         DF = file.DF
+
 
         keys = list(DF)
 
@@ -123,7 +131,19 @@ def CreateContextGenerator(file:File, verticalHeaders: bool = False):
             answerSheet = {}
             client = (DF.loc[loop_counter])
             for k, v in zip(keys, client):
-                answerSheet[str(k)] = v
+                if isinstance(v, str) and v.find(", ") != -1:
+                    if k.lower().endswith("s"):
+
+                        answerSheet[str(k)] = v.strip()
+                    else:
+                        endstr = None
+                        if k.islower() or k.istitle():
+                            endstr = "s"
+                        elif k.isupper():
+                            endstr = "S"
+                        answerSheet[str(k) + endstr] = v.strip()
+                    v = v.strip().split(", ")
+                    answerSheet[str(k)] = v
 
             answerSheets.append(answerSheet)
             loop_counter += 1
@@ -131,14 +151,14 @@ def CreateContextGenerator(file:File, verticalHeaders: bool = False):
         return answerSheets
 
     if verticalHeaders:
-        return (getVerticalHeadersTbl, "Vertical")
+        return getVerticalHeadersTbl
     else:
-        return (getHorizontalHeadersTbl, "Horizontal")
-
-
+        return getHorizontalHeadersTbl
+object
 
 if __name__ == '__main__':
-
-    GenerateContext, _ = CreateContextGenerator(File("/Users/joaovitor/projects/repo/personal-academy/Python/litigation/LITTY/LITTY - REF - cópia/PLANILHA REFERENCIA.xlsx"), True)
+    GenerateContext = CreateContextGenerator(File(
+        "/Users/joaovitor/projects/repo/personal-academy/Python/litigation/LITTY/LITTY - REF - cópia/PLANILHA REFERENCIA - COM CELULA COMPOSTA.xlsx"),
+                                                True)
     context = GenerateContext()
     pprint(context, sort_dicts=False)

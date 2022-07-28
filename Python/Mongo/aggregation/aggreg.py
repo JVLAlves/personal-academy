@@ -358,12 +358,30 @@ def core_relation(core:str):
         squad.append(core)
         legacy.append(core)
 
+def SynergyList(collection: mg.collection.Collection = kaltsitCollection):
+    project = {
+        "$project":{
+            "_id":"$name",
+            "synergy": "$synergy"
+        }
+    }
+
+    match = {
+        "$match":
+            {
+                "synergy" : {"$ne":None}
+            }
+    }
+
+    pipeline = [project, match]
+
+    results = collection.aggregate(pipeline)
+    for each in results:
+        pprint(each)
 
 
 if __name__ == '__main__':
-    print(core_relation("Eunectes"))
-
-
+    print(core_relation("Lizkarm"))
 
 """
 Blemishine

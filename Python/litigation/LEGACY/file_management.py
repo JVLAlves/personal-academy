@@ -1,9 +1,8 @@
 import datetime
 import os
 import shutil
-from datetime import date
 import const
-import pyminizip as zip
+
 
 #track the automatically generated files through the File Watermark
 def track():
@@ -16,7 +15,7 @@ def track():
     for file in files:
 
         #if ends with the Watermark and the correct Extension, it wll be appended to the Track list.
-        if file.endswith(const.FILE_WATERMARK+const.FILE_EXTENSION):
+        if file.endswith(const.FILE_WATERMARK + const.FILE_EXTENSION):
             Track.append(file)
         else:
             print("Never mind!")

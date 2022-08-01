@@ -112,6 +112,16 @@ def get_all_operator(collection: mg.collection.Collection = kaltsitCollection, o
         all_operator = None
     return all_operator
 
+def query_operator(query:dict, collection:mg.collection.Collection = kaltsitCollection):
+    operator_bundle = []
+    operators = collection.find(query)
+    for operator in operators:
+        operator_bundle.append(dict(operator))
+
+    if len(operator_bundle) == 0:
+        operator_bundle = None
+    return operator_bundle
+
 
 def delete_operator(operator: dict, collection: mg.collection.Collection = kaltsitCollection):
     if collection.find_one({"name": {"$eq": operator["name"]}}) != None:

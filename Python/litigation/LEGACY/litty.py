@@ -1,11 +1,6 @@
-from configparser import ConfigParser
-
-import edit as edit
 from docxtpl import DocxTemplate
 import file_management as filem
-import const
 import excel as xl
-import PySimpleGUI as sg
 from login import *
 
 TEMPLATE, TABLE= xl.init()

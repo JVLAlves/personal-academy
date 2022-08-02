@@ -5,7 +5,7 @@ import PySimpleGUI as sg
 import LITTY.cmd.mongo.mongo_automation_cmds as mg_auto
 import LITTY.cmd.fileaction.excel as xl
 import LITTY.cmd.fileaction.word as wd
-from LITTY.cmd.obj.popup_interfaces import popup_download
+from LITTY.cmd.obj.popup_interfaces import popup_download, popup_selector
 import LITTY.cmd.mongo.mongo_users_cmds as mg_users
 from LITTY.glob.errors import DatabaseOutOfDateError
 import LITTY.cmd.fileaction.zipper as zip
@@ -77,16 +77,16 @@ class automation_window:
         tbl_file = xl.File(automation_info["tbl"]["initial_path"])
 
         # write the bytes of the docx file in the download_path
-        out_docx_path = self.download_path + f"/{docx_file.file}"
-        out_docx = open(out_docx_path, "wb")
+        self.out_docx_path = self.download_path + f"/{docx_file.file}"
+        out_docx = open(self.out_docx_path, "wb")
         out_docx.write(docx_content)
-        out_docx_file = xl.File(out_docx_path)
+        out_docx_file = xl.File(self.out_docx_path)
 
         # write the bytes of the table file in the download_path
-        out_tbl_path = self.download_path + f"/{tbl_file.file}"
-        out_tbl = open(out_tbl_path, "wb")
+        self.out_tbl_path = self.download_path + f"/{tbl_file.file}"
+        out_tbl = open(self.out_tbl_path, "wb")
         out_tbl.write(tbl_content)
-        out_tbl_file = xl.File(out_tbl_path)
+        out_tbl_file = xl.File(self.out_tbl_path)
 
         while True:
             event, _ = window.read(timeout=100)
@@ -105,6 +105,7 @@ class automation_window:
                     wd.GenerateFileFromDefaultDocx(context[0], out_docx_file, self.download_path)
                 else:
                     GenerateContext = xl.CreateContextGenerator(out_tbl_file)
+                    print(out_tbl_file.DF)
                     ContextList = GenerateContext()
                     itercounter = 1
                     for context in ContextList:
@@ -118,26 +119,40 @@ class automation_window:
                 dirpath = zip.makefile(files, self.download_path)
                 print(dirpath)
                 zip.ZipAndClose(dirpath, automation_name)
-                os.remove(out_docx_path)
-                os.remove(out_tbl_path)
+
+                #delete the transcrypted files
+                os.remove(self.out_docx_path)
+                os.remove(self.out_tbl_path)
 
                 sg.popup_notify("Files Generated Sucessfully", title="Success!")
                 break
             elif event == "-SEL-":
                 if automation_info["tbl"]["orientation"] == "vertical":
                     GenerateContext = xl.CreateContextGenerator(out_tbl_file, True)
-                    context = GenerateContext()
+                    context = GenerateContext()[0]
                     context_elements_lists = []
-                    for k, v in context[0].items:
+                    for k, v in context.items():
                         if isinstance(v, list):
                             context_elements_lists.append({k:v})
 
-                    if len(context_elements_lists) != 0:
+                    selector = popup_selector(context_elements_lists)
+                    overall_context = selector.open()
+                    context.update(overall_context)
+                    print(context)
 
 
+                    wd.GenerateFileFromDefaultDocx(context, out_docx_file, self.download_path)
 
-                        pprint(context)
-                    wd.GenerateFileFromDefaultDocx(context[0], out_docx_file, self.download_path)
+                    files = zip.track(self.download_path)
+                    if files is None or len(files) == 0:
+                        exit()
+                    dirpath = zip.makefile(files, self.download_path)
+                    print(dirpath)
+                    zip.ZipAndClose(dirpath, automation_name)
+
+                    # delete the transcrypted files
+                    os.remove(self.out_docx_path)
+                    os.remove(self.out_tbl_path)
                 else:
                     pass
 
@@ -170,6 +185,8 @@ class automation_window:
         while True:
             edit_event, edit_value = edit_window.read(timeout=100)
             if edit_event == sg.WIN_CLOSED:
+                os.remove(self.out_docx_path)
+                os.remove(self.out_tbl_path)
                 break
             elif edit_event == "-EDIT-":
 

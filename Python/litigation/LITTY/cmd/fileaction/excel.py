@@ -2,11 +2,12 @@ from pprint import pprint
 
 import pandas as pd
 import os
-from configparser import ConfigParser
 
 
 class File:
     def __init__(self, file: str):
+
+        print(file)
 
         # verify if file path exists
         if not os.path.exists(file):
@@ -131,6 +132,7 @@ def CreateContextGenerator(file:File, verticalHeaders: bool = False):
             answerSheet = {}
             client = (DF.loc[loop_counter])
             for k, v in zip(keys, client):
+                print(v, type(v))
                 if isinstance(v, str) and v.find(", ") != -1:
                     if k.lower().endswith("s"):
 
@@ -142,7 +144,10 @@ def CreateContextGenerator(file:File, verticalHeaders: bool = False):
                         elif k.isupper():
                             endstr = "S"
                         answerSheet[str(k) + endstr] = v.strip()
-                    v = v.strip().split(", ")
+
+                else:
+                    if isinstance(v, str):
+                        v = v.strip()
                     answerSheet[str(k)] = v
 
             answerSheets.append(answerSheet)

@@ -1,5 +1,40 @@
+from pprint import pprint
+
 import PySimpleGUI as sg
 import LITTY.glob.globals as glob
+
+
+class selection:
+    def __init__(self, title:str, collection:list):
+        self.recollection = []
+        self.title = title
+        self.id = id
+        self.collection = collection
+        self.length = len(collection)
+
+    def isThis(self, item:str):
+        print(self.collection)
+        print(self.recollection)
+        if item in self.collection:
+            if item not in self.recollection:
+                self.recollection.append(item)
+                print(f"{item} added to {self.title} recollection.")
+        else:
+            print(f"{item} does not belongs to the {self.title} collection.")
+
+    def contextSegment(self):
+        context_segment = {self.title:", ".join(self.recollection)}
+        counter = 1
+        lead = self.title.upper().replace("S", "")
+        for index, item in enumerate(self.recollection):
+            print(item)
+            key = lead+f"{counter}"
+            context_segment[key] = item
+            counter+=1
+        return context_segment
+
+
+
 
 class popup_download:
     layout = [
@@ -32,14 +67,22 @@ class popup_selector:
             [sg.VPush()]
         ]
         frames = []
+        self.selections = []
 
         for element in list_elements:
+            print(element)
             layout = []
-            title = element.keys()[0]
-            for value in element.values()[0]:
+            title = list(element.keys())[0]
+            items = list(element.values())[0]
+
+
+            print(title, items)
+            select = selection(title, items)
+            self.selections.append(select)
+            for value in items:
                 checkbox = [sg.Checkbox(value, key=value)]
                 layout.append(checkbox)
-            frames.append([sg.Frame(title, layout)])
+            frames.append(sg.Frame(title, layout))
 
         self.layout.append(frames)
         self.layout.append([sg.VPush()])
@@ -55,6 +98,19 @@ class popup_selector:
             if event == sg.WIN_CLOSED:
                 exit()
             elif event == "SELECT":
+                pprint(values)
+                for everyValue in values:
+                    print(everyValue, values[everyValue])
+                    if values[everyValue]:
+
+                        for selection in self.selections:
+                            selection.isThis(everyValue)
+
+                overall_context = {}
+                for category in self.selections:
+                    overall_context.update(category.contextSegment())
+
+                return overall_context
 
 
 

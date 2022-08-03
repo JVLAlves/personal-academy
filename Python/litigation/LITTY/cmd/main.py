@@ -144,5 +144,4 @@ if __name__ == '__main__':
 
 
 
-#TODO: add login and sigin tabs
-#TODO: link automation to profiles
+#TODO: TUTORIAL IN TAB INTRO

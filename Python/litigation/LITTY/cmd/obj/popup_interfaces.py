@@ -109,7 +109,7 @@ class popup_selector:
                 overall_context = {}
                 for category in self.selections:
                     overall_context.update(category.contextSegment())
-
+                self.window.close()
                 return overall_context
 
 

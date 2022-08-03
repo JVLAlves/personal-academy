@@ -96,6 +96,10 @@ class automation_window:
             window["-DOWNPATH-"].update(self.automation["download_path"])
 
             if event == sg.WIN_CLOSED:
+                # delete the transcrypted files
+                os.remove(self.out_docx_path)
+                os.remove(self.out_tbl_path)
+
                 break
             elif event == "-ALL-":
                 if automation_info["tbl"]["orientation"] == "vertical":
@@ -153,15 +157,25 @@ class automation_window:
                     # delete the transcrypted files
                     os.remove(self.out_docx_path)
                     os.remove(self.out_tbl_path)
+                    break
                 else:
                     pass
 
             elif event == "-DELETE-":
                 mg_auto.delete_automation({"name": automation_name, "created_by": currentUser})
                 sg.popup_notify("Section Deleted Successfully!", title="Success")
+
+                # delete the transcrypted files
+                os.remove(self.out_docx_path)
+                os.remove(self.out_tbl_path)
+
                 break
             elif event == "-EDIT-":
                 self.edit_window()
+
+                # delete the transcrypted files
+                os.remove(self.out_docx_path)
+                os.remove(self.out_tbl_path)
                 break
 
         window.close()

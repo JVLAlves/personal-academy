@@ -1,5 +1,5 @@
 from pprint import pprint
-
+import datetime
 import pandas as pd
 import os
 
@@ -64,12 +64,12 @@ def getVerticalHeaders(file: File, ColumnHeader: str):
     print(keys)
     answerSheet = {}
     for k in keys:
-        answerSheet[str(k)] = None
+        answerSheet[str(k).replace(" ", "_")] = None
     pprint(answerSheet)
     return answerSheet
 
 
-def CreateContextGenerator(file:File, verticalHeaders: bool = False):
+def CreateContextGenerator(file: File, verticalHeaders: bool = False):
     """Creates a context generator function.
 
     :param file: Is the file which contains the data table.
@@ -95,19 +95,33 @@ def CreateContextGenerator(file:File, verticalHeaders: bool = False):
         print(keys, values)
         answerSheet = {}
         for k, v in zip(keys, values):
+
+            # formating case for datetime
+            if isinstance(v, datetime.datetime):
+                Vdatetime = v
+                print(f"DATETME: {Vdatetime}")  # atetime.datetime(2022, 8, 3, 0, 0)
+                v = Vdatetime.strftime("%d/%m/%Y")  # QUESTION: sempre será utilizada a data sem a hora?
+
+            # formating case for prices and cost values
+            if isinstance(v, int):
+                price = f"{v:,.2f}".replace(".", "F").replace(",", "D")
+                price = price.replace("F", ",").replace("D", ".")
+                v = price
+
+            # formating case for lists
             if isinstance(v, str) and v.find(", ") != -1:
                 if k.lower().endswith("s"):
 
-                    answerSheet[str(k)] = v.strip()
+                    answerSheet[str(k).replace(" ", "_")] = v.strip()
                 else:
                     endstr = None
                     if k.islower() or k.istitle():
                         endstr = "s"
                     elif k.isupper():
                         endstr = "S"
-                    answerSheet[str(k)+endstr] = v.strip()
+                    answerSheet[str(k).replace(" ", "_") + endstr] = v.strip()
                 v = v.strip().split(", ")
-            answerSheet[str(k)] = v
+            answerSheet[str(k).replace(" ", "_")] = v
         return [answerSheet]
 
     def getHorizontalHeadersTbl():
@@ -122,7 +136,6 @@ def CreateContextGenerator(file:File, verticalHeaders: bool = False):
 
         DF = file.DF
 
-
         keys = list(DF)
 
         clients_count = len(DF.index)
@@ -132,23 +145,37 @@ def CreateContextGenerator(file:File, verticalHeaders: bool = False):
             answerSheet = {}
             client = (DF.loc[loop_counter])
             for k, v in zip(keys, client):
-                print(v, type(v))
+
+                # formating case for datetime
+                if isinstance(v, datetime.datetime):
+                    Vdatetime = v
+                    print(f"DATETME: {Vdatetime}")  # atetime.datetime(2022, 8, 3, 0, 0)
+                    v = Vdatetime.strftime("%d/%m/%Y")  # QUESTION: sempre será utilizada a data sem a hora?
+
+                # formating case for prices and cost values
+                if isinstance(v, int):
+                    price = f"{v:,.2f}".replace(".", "float_indicator").replace(",","decimal_separator")
+                    price = price.replace("F", ",").replace("D", ".")
+
+                    v = price
+
+                # formating case for lists
                 if isinstance(v, str) and v.find(", ") != -1:
                     if k.lower().endswith("s"):
 
-                        answerSheet[str(k)] = v.strip()
+                        answerSheet[str(k).replace(" ", "_")] = v.strip()
                     else:
                         endstr = None
                         if k.islower() or k.istitle():
                             endstr = "s"
                         elif k.isupper():
                             endstr = "S"
-                        answerSheet[str(k) + endstr] = v.strip()
+                        answerSheet[str(k).replace(" ", "_") + endstr] = v.strip()
 
                 else:
                     if isinstance(v, str):
                         v = v.strip()
-                    answerSheet[str(k)] = v
+                    answerSheet[str(k).replace(" ", "_")] = v
 
             answerSheets.append(answerSheet)
             loop_counter += 1
@@ -159,11 +186,13 @@ def CreateContextGenerator(file:File, verticalHeaders: bool = False):
         return getVerticalHeadersTbl
     else:
         return getHorizontalHeadersTbl
+
+
 object
 
 if __name__ == '__main__':
     GenerateContext = CreateContextGenerator(File(
         "/Users/joaovitor/projects/repo/personal-academy/Python/litigation/LITTY/LITTY - REF - cópia/PLANILHA REFERENCIA - COM CELULA COMPOSTA.xlsx"),
-                                                True)
+        True)
     context = GenerateContext()
     pprint(context, sort_dicts=False)

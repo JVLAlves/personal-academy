@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Capture_the_flag.iml" filepath="$PROJECT_DIR$/.idea/Capture_the_flag.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../FlagHunter/.idea/FlagHunter.iml" filepath="$PROJECT_DIR$/../../FlagHunter/.idea/FlagHunter.iml" />
     </modules>
   </component>
 </project>
